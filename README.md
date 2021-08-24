@@ -1,6 +1,8 @@
 # sciter demo application
 
-This is a sciter demo application for [sciter.js](https://sciter.com/) from which you can start building any app.
+This is a sciter demo application for [sciter.js](https://sciter.com/) on top of which you can start building any app.
+
+![sciter demo app screenshot](screenshot.png)
 
 ## features
 
