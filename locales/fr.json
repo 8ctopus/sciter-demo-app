@@ -1,0 +1,43 @@
+{
+    "translation": {
+        "Sign-in": "Connexion",
+        "Username or email address": "nom d'utilisateur ou adresse email",
+        "Password": "Mot de passe",
+        "Login": "Se connecter",
+        "Sign Up": "Enregistrement",
+        "Email address": "Adresse email",
+        "Sign up": "Enregistrement",
+        "Your Dashboard": "Votre tableau de bord",
+        "Reset your password": "Ré-initialiser votre mot de passe",
+        "Send password reset email": "Envoyez l'email pour ré-initialiser le mdp",
+        "Password reset email sent!": "L'email pour la ré-initialisatin du mot de passe envoyé!"
+    },
+
+    "messages": {
+        "cancel_on_quit": "Une opération est en cours.\r\n\r\nEtes-vous sûr de vouloir l'annuler?"
+    },
+
+    "dialogs": {
+        "Information": "Information",
+        "Error": "Erreur",
+        "Warning": "Avertisssement",
+        "Question": "Question",
+        "ok": "OK",
+        "yes": "Oui",
+        "no": "Non",
+        "cancel": "Annuler",
+        "help": "Aide"
+    },
+
+    "pagecontrol": {
+        "login": "connexion",
+        "signup": "enregistrement",
+        "reset": "ré-initialiser",
+        "sent": "envoyé",
+        "dashboard": "tableau de bord"
+    },
+
+    "interpolation": {
+        "h1": "Je m'appelle {{name}} et j'ai {{age}} ans."
+    }
+}

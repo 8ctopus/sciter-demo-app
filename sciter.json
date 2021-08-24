@@ -1,0 +1,10 @@
+{
+    "require": {
+        "https://github.com/8ctopus/sciter-logger": "0.4.2",
+        "https://github.com/8ctopus/sciter-utils": "0.5.3",
+        "https://github.com/8ctopus/sciter-dialogs": "1.2.17",
+        "https://github.com/8ctopus/sciter-pagecontrol": "1.6.3",
+        "https://github.com/8ctopus/sciter-i18n": "1.3.5",
+        "https://github.com/8ctopus/sciter-analytics": "0.1.4"
+    }
+}

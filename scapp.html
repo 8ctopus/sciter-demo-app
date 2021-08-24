@@ -1,0 +1,284 @@
+<html
+    window-resizable="true"
+    window-width="700dip"
+    window-height="700dip"
+>
+<head>
+<title data-i18n>sciter demo app</title>
+<style>
+
+@import url(vendor/8ctopus/sciter-logger/src/logger.css);
+@import url(vendor/8ctopus/sciter-pagecontrol/src/pagecontrol.css);
+@import url(css/themes/default.css);
+
+a#forgotPassword {
+    margin-left: 2em;
+}
+
+plaintext#logger {
+    height: *;
+}
+
+</style>
+<script type="module">
+
+import {logger} from "vendor/8ctopus/sciter-logger/src/logger.js";
+import {i18n} from "vendor/8ctopus/sciter-i18n/src/i18n.js";
+import {dialogs} from "vendor/8ctopus/sciter-dialogs/src/dialogs.js";
+import * as utils from "vendor/8ctopus/sciter-utils/src/utils.js";
+import {analytics} from "vendor/8ctopus/sciter-analytics/src/analytics.js";
+
+const debug      = true;
+const appName    = "sciter demo app";
+const appVersion = "0.0.1";
+
+try {
+    if (debug)
+        // initialize logger
+        logger.init({
+            file: URL.toPath(__DIR__ + "../test.log"),
+            clear: true,
+        });
+
+    // attach logger to console
+    logger.attach();
+
+    // capture unhandled exceptions
+    logger.capture();
+
+    // log if sciter running in debug
+    if (debug)
+        logger.debug();
+
+} catch (e) {
+    console.error(e.message + e.stack);
+}
+
+try {
+    document.on("ready", function() {
+        // subscribe to logger messages
+        logger.plaintext(document.$("plaintext#logger"));
+
+        // add support for F5 reload
+        utils.addReloadWindow();
+
+        // close window on escape
+        utils.closeWindowOnEscape();
+
+        // center window on screen
+        utils.centerWindow("screen");
+
+        // bring window to front
+        utils.windowToFront();
+
+        if (debug)
+            // log sciter version
+            console.debug(utils.sciterInfo());
+
+        // set endpoint
+        analytics.init({
+            //endpoint: "http://localhost/index.php"
+            log: true,
+        });
+
+        // add environmental variables
+        analytics.env({
+            name: appName,
+            version: appVersion,
+        });
+
+        // log event
+        analytics.event("app started");
+
+        // watch app close
+        analytics.watch("closerequest", null, "app close request");
+
+        // log monitors
+        utils.logMonitors();
+        console.log(`on monitor ${Window.this.screen + 1}`);
+
+        // fixes win + m not working
+        // https://sciter.com/forums/topic/windows-m-not-working-when-window-resizable-is-false/
+        Window.this.isMinimizable = true;
+
+        // configure dialogs
+        dialogs.setOptions({
+            logging: true,
+            callback: translateDialog,
+        });
+
+        // initialize translation engine
+        const locale = "fr";
+        const config = {
+            // i18n logging
+            logging: debug,
+
+            // debug i18next
+            debug: false,
+
+            defaultValue: debug ? " (i18n)" : "",
+
+            interpolation: {
+                escapeValue: false,
+                defaultVariables: {
+                    name: appName,
+                    version: appVersion,
+                },
+            },
+        };
+
+        if (i18n.init(locale, document.url(`locales/${locale}.json`), config))
+            console.log("i18n init - OK");
+
+        // translate window
+        i18n.i18n(document);
+    });
+
+    // on close query
+    document.on("closerequest", (event) => {
+        // ask for user confirmation
+        const result = dialogs.show("question", i18n.m("messages:cancel_on_quit", "An operation is progress.\r\n\r\nAre your sure you want to cancel it?"), "yes no");
+
+        if (result !== "yes")
+            // cancel quit
+            event.preventDefault();
+    });
+
+    // on close
+    document.on("close", function() {
+        console.log("Close application");
+    });
+
+    document.on("click", function(event, element) {
+        const pagecontrol = document.$("pagecontrol");
+
+        switch (element.id) {
+            case "btLogin":
+                pagecontrol.showTab("tsDashboard");
+                break;
+
+            case "createAccount":
+                pagecontrol.showTab("tsSignup");
+                break;
+
+            case "btSignUp":
+                pagecontrol.showTab("tsLogin");
+                break;
+
+            case "forgotPassword":
+                pagecontrol.showTab("tsReset");
+                break;
+
+            case "reset":
+                pagecontrol.showTab("tsSent");
+                break;
+
+            case "showEvents":
+                analytics.log();
+                break;
+
+            case "sendEvents":
+                analytics.send();
+                break;
+
+            default:
+        }
+    });
+
+    // handle show tab event
+    document.on("showtab", "pagecontrol", function(event, element) {
+        console.debug(event.detail.tab);
+
+        switch (event.detail.tab) {
+            case "tsLogin":
+                event = "start login";
+                break;
+
+            case "tsSignup":
+                event = "start signup";
+                break;
+
+            case "tsDashboard":
+                event = "end login";
+                break;
+
+            case "tsReset":
+                event = "start reset";
+                break;
+
+            case "tsSent":
+                event = "end reset";
+                break;
+
+            default:
+        }
+
+        //console.debug(`event - ${event}`);
+
+        // log event
+        analytics.event(event);
+    });
+
+    /**
+     * Translate dialog callback
+     * @param DOMElement root
+     * @return void
+     */
+    function translateDialog(root)
+    {
+        // translate dialog
+        i18n.i18n(root);
+    }
+} catch (e) {
+    console.exception(e.message + e.stack);
+}
+
+</script>
+</head>
+<body>
+    <pagecontrol header-position="top" header-visible="true">
+        <tab caption="login" #tsLogin selected>
+            <div .vbox>
+                <h1 data-i18n> Sign-in </h1>
+                <label for="email" data-i18n> Username or email address </label>
+                <input type="text" #email />
+                <div .hbox>
+                    <label for="password" data-i18n> Password </label><a #forgotPassword tabindex data-i18n> Forgot password? </a>
+                </div>
+                <input type="password" #password />
+                <button #btLogin data-i18n> Login </button>
+                <p>New? <a #createAccount tabindex data-i18n>Create an account</a>.</p>
+            </div>
+        </tab>
+        <tab caption="signup" #tsSignup>
+            <div .vbox>
+                <h1 data-i18n> Sign Up </h1>
+                <label for="email2" data-i18n> Email address </label>
+                <input type="text" #email2 />
+                <label for="password2" data-i18n> Password </label>
+                <input type="password" #password2 />
+                <button #btSignUp data-i18n> Sign up </button>
+            </div>
+        </tab>
+        <tab caption="dashboard" #tsDashboard>
+            <div .vbox>
+                <h1 data-i18n> Your Dashboard </h1>
+            </div>
+        </tab>
+        <tab caption="reset" #tsReset>
+            <div .vbox>
+                <h1 data-i18n> Reset your password </h1>
+                <label for="email2" data-i18n> Enter your user account's verified email address and we will send you a password reset link. </label>
+                <input type="text" #email2 />
+                <button #reset data-i18n> Send password reset email </button>
+            </div>
+        </tab>
+        <tab caption="sent" #tsSent>
+            <div .vbox>
+                <h1 data-i18n> Password reset email sent! </h1>
+            </div>
+        </tab>
+    </pagecontrol>
+    <plaintext #logger readonly />
+</body>
+</html>
