@@ -58,7 +58,7 @@ function checkFile(path) {
 
 function getPackfolderPath() {
   if(env.PLATFORM == "Windows")
-    return checkFile(env.home("../packfolder.exe") ) 
+    return checkFile(env.home("/packfolder.exe") )
         || checkFile(env.home("../../bin/windows/packfolder.exe"));
   else if(env.PLATFORM == "OSX")
     return checkFile(env.home("packfolder") ) 
@@ -138,7 +138,7 @@ export async function assemble(params) {
       switch(target) {
         case "winX32": {
           await convertSvgToIco(params.logo,icofile);
-          const scapp = checkFile( env.home("../x32/scapp.exe") ) || checkFile( env.home("../../bin.win/x32/scapp.exe"));
+          const scapp = checkFile( env.home("scapp.exe") ) || checkFile( env.home("../../bin.win/x32/scapp.exe"));
           const exefile = makePath(params.out, ["windows","x32"], params.exe + ".exe");
           var p = Object.assign({},params,{icofile:icofile});
           assembleExe(target,scapp,datfile,exefile,p);
