@@ -1,6 +1,6 @@
 # sciter demo application
 
-This is a sciter demo application for [sciter.js](https://sciter.com/) on top of which you can start building any app.
+This is a [sciter.js](https://sciter.com/) demo application on top of which you can start building any app.
 
 ![sciter demo app screenshot](screenshot.png)
 
@@ -26,3 +26,9 @@ php ../bin/spm.phar install
 
 - run `scapp.bat`
 - to refresh the app after changes to the html/css click `F5`
+
+## build executable
+
+To build the app executable, run `quark.bat` then complete the form as on the screenshot below.
+
+![quark screenshot](quark.png)
