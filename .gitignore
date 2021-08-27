@@ -5,5 +5,6 @@
 /spm
 
 /*.sublime-workspace
+/src/vendor/
 
-/vendor/
+/test.log
