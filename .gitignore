@@ -4,8 +4,8 @@
 /sciter.dll
 /spm.phar
 /spm
-
 /*.sublime-workspace
-/src/vendor/
-
 /test.log
+
+/bin/
+/src/vendor/
