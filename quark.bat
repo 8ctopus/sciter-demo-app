@@ -1,1 +1,1 @@
-start scapp.exe quark\index.htm --debug
+start bin\scapp.exe quark\index.htm --debug
