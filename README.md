@@ -1,19 +1,20 @@
 # sciter demo application
 
-This is a [sciter.js](https://sciter.com/) demo application on top of which you can start building any app.
+This is a [sciter.js](https://sciter.com/) demo standalone application.
+It can be used as the starting point to build your app.
 
 ![sciter demo app screenshot](screenshot.png)
 
 ## features
 
 - logger
-- pagecontrol
 - dialogs
 - translation engine
 - theme
+- pagecontrol
 - in-app analytics
 
-## demo
+## run application
 
 - git clone the repository
 - run `install.bat` to download the latest sciter binaries and the sciter package manager
