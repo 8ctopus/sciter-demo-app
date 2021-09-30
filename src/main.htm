@@ -137,7 +137,7 @@ try {
     // on close query
     document.on("closerequest", (event) => {
         // ask for user confirmation
-        const result = dialogs.show("question", i18n.m("messages:cancel_on_quit", "An operation is progress.\r\n\r\nAre your sure you want to cancel it?"), "yes no");
+        const result = dialogs.show("question", i18n.m("messages:cancel_on_quit", "Operation in progress.\r\n\r\nCancel?"), "yes no");
 
         if (result !== "yes")
             // cancel quit

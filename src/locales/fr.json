@@ -14,7 +14,7 @@
     },
 
     "messages": {
-        "cancel_on_quit": "Une opération est en cours.\r\n\r\nEtes-vous sûr de vouloir l'annuler?"
+        "cancel_on_quit": "Une opération est en cours.\r\n\r\nAnnuler?"
     },
 
     "dialogs": {
