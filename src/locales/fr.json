@@ -1,14 +1,19 @@
 {
     "translation": {
+        "Sciter demo app": "Application de demo",
         "Sign-in": "Connexion",
         "Username or email address": "nom d'utilisateur ou adresse email",
         "Password": "Mot de passe",
+        "Forgot password?": "Mot de passe oublié?",
+        "Create an account": "Créer un compte",
         "Login": "Se connecter",
+        "New?": "Nouveau?",
         "Sign Up": "Enregistrement",
         "Email address": "Adresse email",
         "Sign up": "Enregistrement",
         "Your Dashboard": "Votre tableau de bord",
         "Reset your password": "Ré-initialiser votre mot de passe",
+        "Enter your user account's verified email address and we will send you a password reset link.": "Entrer l'email enregistré avec votre compte et nous vous enverrons un lien pour ré-initialiser le mot de passe.",
         "Send password reset email": "Envoyez l'email pour ré-initialiser le mdp",
         "Password reset email sent!": "L'email pour la ré-initialisatin du mot de passe envoyé!"
     },
