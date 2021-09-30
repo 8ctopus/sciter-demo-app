@@ -16,8 +16,8 @@ It can be used as the starting point to build your own app.
 
 ## demo
 
-Check the Windows pre-built executables in releases [x32](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.1/demo-x32.exe)
-[x64](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.1/demo-x64.exe)
+Check the Windows pre-built executables [x32](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.1/demo-x32.exe)
+[x64](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.1/demo-x64.exe) in releases.
 
 ## requirements
 
