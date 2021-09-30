@@ -1,9 +1,18 @@
-cd bin
+mkdir bin\x32
+mkdir bin\x64
+
+cd bin\x32
 
 REM sciter 4.4.8.12
 curl -LO https://github.com/c-smile/sciter-js-sdk/raw/b73c9cb6b6501908a1ed2f46e333b86a1cae9482/bin/windows/x32/scapp.exe
 curl -LO https://github.com/c-smile/sciter-js-sdk/raw/b73c9cb6b6501908a1ed2f46e333b86a1cae9482/bin/windows/x32/inspector.exe
 curl -LO https://github.com/c-smile/sciter-js-sdk/raw/b73c9cb6b6501908a1ed2f46e333b86a1cae9482/bin/windows/x32/sciter.dll
+
+cd ..\x64
+
+curl -LO https://github.com/c-smile/sciter-js-sdk/raw/b73c9cb6b6501908a1ed2f46e333b86a1cae9482/bin/windows/x64/scapp.exe
+
+cd ..
 
 REM sciter packfolder
 curl -LO https://github.com/c-smile/sciter-js-sdk/raw/b73c9cb6b6501908a1ed2f46e333b86a1cae9482/bin/windows/packfolder.exe
