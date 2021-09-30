@@ -1,7 +1,7 @@
 # sciter demo application
 
 This is a [sciter.js](https://sciter.com/) demo standalone application.
-It can be used as the starting point to build your app.
+It can be used as the starting point to build your own app.
 
 ![sciter demo app screenshot](screenshot.png)
 
@@ -16,7 +16,8 @@ It can be used as the starting point to build your app.
 
 ## demo
 
-Check the Windows pre-built executable in releases [demo.exe](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.0/demo.exe)
+Check the Windows pre-built executables in releases [x32](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.1/demo-x32.exe)
+[x64](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.1/demo-x64.exe)
 
 ## requirements
 
