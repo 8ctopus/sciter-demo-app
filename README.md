@@ -14,7 +14,7 @@ It can be used as the starting point to build your app.
 - pagecontrol
 - in-app analytics
 
-## run application
+## demo
 
 - git clone the repository
 - run `install.bat` to download the latest sciter binaries and the sciter package manager
@@ -25,11 +25,11 @@ cd src
 php ../bin/spm.phar install
 ```
 
-- run `scapp.bat`
+- run script `scapp.bat`
 - to refresh the app after changes to the html/css click `F5`
 
 ## build executable
 
-To build the app executable, run `quark.bat`, complete the form as on the screenshot and finally click `Assemble`.
+To build the app executable, run script `quark.bat`, complete the form as on the screenshot and finally click `Assemble`.
 
 ![quark screenshot](quark.png)
