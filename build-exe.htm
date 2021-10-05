@@ -138,23 +138,23 @@ document.on("ready", async() => {
 
     switch (result) {
         case 0:
-            console.note(`Build - OK`);
+            console.note(`Build exe - OK`);
             break;
 
         case 1:
-            console.error(`Build - FAILED - no metadata update`);
+            console.error(`Build exe - FAILED - no metadata update`);
             break;
 
         case -1:
-            console.error(`Build - FAILED - no .dat file`);
+            console.error(`Build exe - FAILED - no .dat file`);
             break;
 
         case -2:
-            console.error(`Build - FAILED - open output file`);
+            console.error(`Build exe - FAILED - open output file`);
             break;
 
         case -3:
-            console.error(`Build - FAILED - write output file`);
+            console.error(`Build exe - FAILED - write output file`);
             break;
     }
 });

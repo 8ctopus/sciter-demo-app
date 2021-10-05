@@ -8,4 +8,3 @@ REM build app
 start bin\x32\scapp.exe build-exe.htm
 
 REM pause
-REM magick -define icon:auto-resize src\icon.svg bin\demo.ico
