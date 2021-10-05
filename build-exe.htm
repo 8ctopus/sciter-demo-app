@@ -164,7 +164,7 @@ function buildExe(type, manifest)
         path + manifest["tmp"] + resources,
 
         // output binary
-        path + `bin/${type}/demo.exe`,
+        path + `bin/${type}/${manifest["productName"]}.exe`,
         manifest);
 
     switch (result) {
