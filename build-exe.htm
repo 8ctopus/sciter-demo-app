@@ -141,6 +141,12 @@ document.on("ready", async() => {
     };
 */
 
+    buildExe("x32", manifest);
+    buildExe("x64", manifest);
+});
+
+function buildExe(type, manifest)
+{
     // get current path
     const path = URL.toPath(__DIR__);
 
@@ -152,37 +158,41 @@ document.on("ready", async() => {
     // build exe
     const result = Window.this.scapp.assembleExe(
         // scapp exe
-        path + "bin/x32/scapp.exe",
+        path + `bin/${type}/scapp.exe`,
 
         // packed resources
         path + manifest["tmp"] + resources,
 
         // output binary
-        path + "bin/x32/demo.exe",
+        path + `bin/${type}/demo.exe`,
         manifest);
 
     switch (result) {
         case 0:
-            console.note(`Build exe - OK`);
+            console.note(`Build exe ${type} - OK`);
             break;
 
         case 1:
-            console.error(`Build exe - FAILED - no metadata update`);
+            console.error(`Build exe ${type} - FAILED - no metadata update`);
             break;
 
         case -1:
-            console.error(`Build exe - FAILED - no .dat file`);
+            console.error(`Build exe ${type} - FAILED - no .dat file`);
             break;
 
         case -2:
-            console.error(`Build exe - FAILED - open output file`);
+            console.error(`Build exe ${type} - FAILED - open output file`);
             break;
 
         case -3:
-            console.error(`Build exe - FAILED - write output file`);
+            console.error(`Build exe ${type} - FAILED - write output file`);
+            break;
+
+        default:
+            console.error(`Build exe ${type} - FAILED - unknown error`);
             break;
     }
-});
+}
 
 async function readPipe(pipe)
 {
