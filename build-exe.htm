@@ -16,6 +16,7 @@ plaintext#logger {
 
 import {logger} from "src/vendor/8ctopus/sciter-logger/src/logger.js";
 import * as utils from "src/vendor/8ctopus/sciter-utils/src/utils.js";
+import * as sys from "@sys";
 
 // attach logger to console
 logger.attach();
@@ -39,7 +40,8 @@ document.on("ready", function() {
     // log sciter version
     console.debug(utils.sciterInfo());
 
-    const path = "K:/dev/github/sciter-demo-app";
+    // get current path
+    const path = sys.cwd();
 
     const params = {
         productName: "demo",
