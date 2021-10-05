@@ -49,15 +49,38 @@ document.on("ready", async() => {
     // log sciter version
     console.debug(utils.sciterInfo());
 
+    // load manifest info
+    let url = document.url(`manifest.json`);
+
+    // get content
+    let manifest = fetch(url, {sync: true});
+
+    if (!manifest.ok) {
+        console.error(`Load manifest - FAILED`);
+        return;
+    }
+
+    // convert to json
+    try {
+        manifest = manifest.json();
+    } catch (e) {
+        console.exception(`Convert manifest to json - FAILED - ${e.message}`);
+        return;
+    }
+
+    console.log(manifest);
+
     // create exe icon
     let args = [
         "magick",
         "-density", "256x256",
         "-background", "transparent",
-        "src/icon.svg",
+        // source
+        manifest["icon"],
         "-define", "icon:auto-resize",
         "-colors", "256",
-        "bin/tmp/demo.ico",
+        // dest
+        manifest["icofile"],
     ];
 
     console.log(args.join(" "));
@@ -82,8 +105,8 @@ document.on("ready", async() => {
     // pack exe resources
     args = [
         "bin/packfolder.exe",
-        "src",
-        "bin/tmp/demo.dat",
+        manifest["packSrc"],
+        manifest["packDest"],
         "-binary",
     ];
 
@@ -104,29 +127,37 @@ document.on("ready", async() => {
 
     console.line();
 
-    // get current path
-    const path = sys.cwd();
-
-    // build params
+/*
+    // assemble exe build params from cpp
     const params = {
         productName: "demo",
         productVersion: "1.0.0",
-        productCopyright: "demo copyright",
+        productCopyright: "copyright",
 
         icofile: path + "/bin/tmp/demo.ico",
     };
+*/
+
+    // get current path
+    const path = URL.toPath(__DIR__);
+
+    console.log(path);
+
+    manifest["icofile"] = URL.toPath(path + manifest["icofile"]);
+    manifest["icon"]    = URL.toPath(path + manifest["icon"]);
+
 
     // build exe
     const result = Window.this.scapp.assembleExe(
         // scapp exe
-        path + "/bin/x32/scapp.exe",
+        path + "bin/x32/scapp.exe",
 
         // packed resources
-        path + "/bin/tmp/demo.dat",
+        path + "bin/tmp/demo.dat",
 
         // output binary
-        path + "/bin/x32/demo.exe",
-        params);
+        path + "bin/x32/demo.exe",
+        manifest);
 
     switch (result) {
         case 0:
