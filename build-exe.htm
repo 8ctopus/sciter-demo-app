@@ -57,7 +57,7 @@ document.on("ready", async() => {
         "src/icon.svg",
         "-define", "icon:auto-resize",
         "-colors", "256",
-        "bin/demo.ico",
+        "bin/tmp/demo.ico",
     ];
 
     console.log(args.join(" "));
@@ -83,7 +83,7 @@ document.on("ready", async() => {
     args = [
         "bin/packfolder.exe",
         "src",
-        "bin/demo.dat",
+        "bin/tmp/demo.dat",
         "-binary",
     ];
 
@@ -113,7 +113,7 @@ document.on("ready", async() => {
         productVersion: "1.0.0",
         productCopyright: "demo copyright",
 
-        icofile: path + "/bin/demo.ico",
+        icofile: path + "/bin/tmp/demo.ico",
     };
 
     // build exe
@@ -122,7 +122,7 @@ document.on("ready", async() => {
         path + "/bin/x32/scapp.exe",
 
         // packed resources
-        path + "/bin/demo.dat",
+        path + "/bin/tmp/demo.dat",
 
         // output binary
         path + "/bin/x32/demo.exe",

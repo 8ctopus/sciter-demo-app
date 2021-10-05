@@ -1,3 +1,5 @@
+mkdir bin\tmp
+
 REM pack app resources
 REM bin\packfolder.exe src bin\demo.dat -binary
 
