@@ -21,8 +21,9 @@ Check the Windows pre-built executables [x32](https://github.com/8ctopus/sciter-
 
 ## requirements
 
-- [Sciter package manager](https://github.com/8ctopus/sciter-package-manager) requires php
-- [ImageMagick](https://imagemagick.org/) is required to build the executable
+- [Sciter package manager](https://github.com/8ctopus/sciter-package-manager)
+- Sciter package manager requires php
+- [ImageMagick](https://imagemagick.org/) is required to build the exe icon
 
 ## install
 

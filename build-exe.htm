@@ -105,6 +105,11 @@ document.on("ready", async() => {
 
     process = sys.spawn(args, { stdout: "pipe", stderr: "pipe"});
 
+    if (!process) {
+        console.error("packfolder is not installed or not in path");
+        return;
+    }
+
     readPipe(process.stdout);
     readPipe(process.stderr);
 
