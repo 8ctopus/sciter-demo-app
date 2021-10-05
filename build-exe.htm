@@ -17,26 +17,6 @@ plaintext#logger {
 import {logger} from "src/vendor/8ctopus/sciter-logger/src/logger.js";
 import * as utils from "src/vendor/8ctopus/sciter-utils/src/utils.js";
 
-/*
-quark params
-
-const params = {
-    id: "6MZUVMJEK1REPQ9LEND4MGE9",
-    name: "demo",
-    exe: "demo",
-    logo: "K:/dev/github/sciter-demo-app/src/icon.svg",
-    resources: "K:/dev/github/sciter-demo-app/src",
-    productVersion: "1",
-    productCopyright: "1",
-    productName: "1",
-    targets: "winX32",
-    out: "K:/dev/github/sciter-demo-app/bin",
-    entry: "main.htm found",
-    entryFileExists: true,
-    icofile: "K:/dev/github/sciter-demo-app/bin/demo.ico",
-};
-*/
-
 // attach logger to console
 logger.attach();
 
@@ -56,8 +36,8 @@ document.on("ready", function() {
     // center window on screen
     utils.centerWindow("screen");
 
-        // log sciter version
-        console.debug(utils.sciterInfo());
+    // log sciter version
+    console.debug(utils.sciterInfo());
 
     const path = "K:/dev/github/sciter-demo-app";
 
