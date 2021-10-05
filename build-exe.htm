@@ -21,6 +21,9 @@ import * as utils from "src/vendor/8ctopus/sciter-utils/src/utils.js";
 import * as sys from "@sys";
 import * as sciter from "@sciter";
 
+const resources = "resources.dat";
+const icon      = "app.ico";
+
 // initialize logger
 logger.init({
     file: URL.toPath(__DIR__ + "test.log"),
@@ -80,7 +83,7 @@ document.on("ready", async() => {
         "-define", "icon:auto-resize",
         "-colors", "256",
         // dest
-        manifest["icofile"],
+        manifest["tmp"] + icon,
     ];
 
     console.log(args.join(" "));
@@ -105,8 +108,8 @@ document.on("ready", async() => {
     // pack exe resources
     args = [
         "bin/packfolder.exe",
-        manifest["packSrc"],
-        manifest["packDest"],
+        manifest["resources"],
+        manifest["tmp"] + resources,
         "-binary",
     ];
 
@@ -128,7 +131,7 @@ document.on("ready", async() => {
     console.line();
 
 /*
-    // assemble exe build params from cpp
+    // assemble exe required params (from scapp cpp)
     const params = {
         productName: "demo",
         productVersion: "1.0.0",
@@ -141,11 +144,10 @@ document.on("ready", async() => {
     // get current path
     const path = URL.toPath(__DIR__);
 
-    console.log(path);
+    //console.log(path);
 
-    manifest["icofile"] = URL.toPath(path + manifest["icofile"]);
-    manifest["icon"]    = URL.toPath(path + manifest["icon"]);
-
+    // add icon file to manifest
+    manifest["icofile"] = URL.toPath(path + manifest["tmp"] + icon);
 
     // build exe
     const result = Window.this.scapp.assembleExe(
@@ -153,7 +155,7 @@ document.on("ready", async() => {
         path + "bin/x32/scapp.exe",
 
         // packed resources
-        path + "bin/tmp/demo.dat",
+        path + manifest["tmp"] + resources,
 
         // output binary
         path + "bin/x32/demo.exe",
