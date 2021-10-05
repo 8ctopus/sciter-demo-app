@@ -1,0 +1,10 @@
+{
+    "productName": "sciter demo app",
+    "productVersion": "1.0.2",
+    "productCopyright": "https://sciter.com/",
+
+    "icon": "src/icon.svg",
+
+    "resources": "src",
+    "tmp": "bin/tmp/"
+}
