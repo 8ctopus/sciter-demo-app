@@ -1,6 +1,6 @@
 # sciter demo application
 
-This is a [sciter.js](https://sciter.com/) demo standalone application.
+This is a [sciter.js](https://sciter.com/) demo standalone application (executable).
 It can be used as the starting point to build your own app.
 
 ![sciter demo app screenshot](screenshot.png)
@@ -12,18 +12,18 @@ It can be used as the starting point to build your own app.
 - translation engine
 - theme
 - pagecontrol
-- in-app analytics
+- in-app analytics (work in progress)
 
 ## demo
 
 Check the Windows pre-built executables [x32](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.1/demo-x32.exe)
-[x64](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.1/demo-x64.exe) in releases.
+[x64](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.1/demo-x64.exe) in Releases section.
 
 ## requirements
 
-- [Sciter package manager](https://github.com/8ctopus/sciter-package-manager)
-- Sciter package manager requires php
-- [ImageMagick](https://imagemagick.org/) is required to build the exe icon
+- [Sciter package manager](https://github.com/8ctopus/sciter-package-manager) to install dependencies
+- Sciter package manager itself requires php
+- [ImageMagick](https://imagemagick.org/) to build the exe icon
 
 ## install
 
@@ -43,7 +43,7 @@ php ../bin/spm.phar install
 
 To build the app executable, run script `build-exe.bat`.
 
-## check packages version
+## check dependencies version
 
 ```sh
 cd src
