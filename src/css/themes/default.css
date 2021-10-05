@@ -8,9 +8,11 @@ h1 {
 }
 
 label {
-//    display: inline-block;
     width: max-content;
     overflow-wrap: break-word;
+
+    vertical-align: middle;
+    font-size: 9pt;
 }
 
 a {
@@ -22,12 +24,8 @@ a:hover {
     text-decoration: underline;
 }
 
-input {
-    width: 200dip;
-}
-
-plaintext {
-    height: 200dip;
+button {
+    vertical-align: middle;
 }
 
 button:focus,
@@ -37,13 +35,26 @@ a:focus {
     box-shadow: 0 0 5dip #26bf47;
 }
 
+input {
+    width: 200dip;
+    vertical-align: middle;
+}
+
+select {
+    vertical-align: middle;
+}
+
+plaintext {
+    height: 200dip;
+}
+
 div.vbox {
     flow: vertical;
 
     border: 1dip solid #ebedef;
     border-radius: 6dip;
 
-    padding: 2em 2em 2em 2em;
+    padding: 2em;
 
     // spacing of elements in flow
     border-spacing: 1.0em;
@@ -55,6 +66,17 @@ div.hbox {
     flow: horizontal;
 }
 
+div.vbox,
+div.hbox {
+    // spacing of elements in flow
+    border-spacing: 0.5em;
+}
+
 .right {
     margin-left: *;
+}
+
+.center {
+    margin-left: *;
+    margin-right: *;
 }
