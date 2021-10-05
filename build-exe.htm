@@ -1,0 +1,111 @@
+<html
+    window-resizable="true"
+    window-width="700dip"
+    window-height="300dip"
+>
+<style>
+
+@import url(src/vendor/8ctopus/sciter-logger/src/logger.css);
+
+plaintext#logger {
+    height: *;
+}
+
+</style>
+<script type="module">
+
+import {logger} from "src/vendor/8ctopus/sciter-logger/src/logger.js";
+import * as utils from "src/vendor/8ctopus/sciter-utils/src/utils.js";
+
+/*
+quark params
+
+const params = {
+    id: "6MZUVMJEK1REPQ9LEND4MGE9",
+    name: "demo",
+    exe: "demo",
+    logo: "K:/dev/github/sciter-demo-app/src/icon.svg",
+    resources: "K:/dev/github/sciter-demo-app/src",
+    productVersion: "1",
+    productCopyright: "1",
+    productName: "1",
+    targets: "winX32",
+    out: "K:/dev/github/sciter-demo-app/bin",
+    entry: "main.htm found",
+    entryFileExists: true,
+    icofile: "K:/dev/github/sciter-demo-app/bin/demo.ico",
+};
+*/
+
+// attach logger to console
+logger.attach();
+
+// capture unhandled exceptions
+logger.capture();
+
+document.on("ready", function() {
+    // subscribe to logger messages
+    logger.plaintext(document.$("plaintext#logger"));
+
+    // add support for F5 reload
+    utils.addReloadWindow();
+
+    // close window on escape
+    utils.closeWindowOnEscape();
+
+    // center window on screen
+    utils.centerWindow("screen");
+
+        // log sciter version
+        console.debug(utils.sciterInfo());
+
+    const path = "K:/dev/github/sciter-demo-app";
+
+    const params = {
+        productName: "demo",
+        productVersion: "1.0.0",
+        productCopyright: "demo copyright",
+
+        icofile: path + "/bin/demo.ico",
+    };
+
+    // build exe
+    const result = Window.this.scapp.assembleExe(
+        // scapp exe
+        path + "/bin/x32/scapp.exe",
+
+        // packed resources
+        path + "/bin/demo.dat",
+
+        // output binary
+        path + "/bin/x32/demo.exe",
+        params);
+
+    switch (result) {
+        case 0:
+            console.log(`Build - OK`);
+            break;
+
+        case 1:
+            console.log(`Build - FAILED - no metadata update`);
+            break;
+
+        case -1:
+            console.error(`Build - FAILED - no .dat file`);
+            break;
+
+        case -2:
+            console.error(`Build - FAILED - open output file`);
+            break;
+
+        case -3:
+            console.error(`Build - FAILED - write output file`);
+            break;
+    }
+});
+
+</script>
+<body>
+<plaintext #logger readonly />
+</body>
+</html>

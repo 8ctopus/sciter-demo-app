@@ -40,9 +40,7 @@ php ../bin/spm.phar install
 
 ## build executable
 
-To build the app executable, run script `quark.bat`, complete the form as on the screenshot and finally click `Assemble`.
-
-![quark screenshot](quark.png)
+To build the app executable, run script `build-exe.bat`.
 
 ## check packages version
 
