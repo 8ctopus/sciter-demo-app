@@ -49,30 +49,8 @@ document.on("ready", async() => {
     // log sciter version
     console.debug(utils.sciterInfo());
 
-    // check if magick is installed
+    // create exe icon
     let args = [
-        "magick",
-        "-version",
-    ];
-
-    console.log(args.join(" "));
-
-    let process = sys.spawn(args, { stdout: "pipe", stderr: "pipe"});
-
-    if (!process) {
-        console.error("magick is not installed or not in path");
-        return;
-    }
-
-    readPipe(process.stdout);
-    readPipe(process.stderr);
-
-    await process.wait();
-
-    console.line();
-
-    // create icon
-    args = [
         "magick",
         "-density", "256x256",
         "-background", "transparent",
@@ -84,7 +62,15 @@ document.on("ready", async() => {
 
     console.log(args.join(" "));
 
-    process = sys.spawn(args, { stdout: "pipe", stderr: "pipe"});
+    let process;
+
+    try {
+        process = sys.spawn(args, { stdout: "pipe", stderr: "pipe"});
+    }
+    catch (e) {
+        console.exception(e.message);
+        return;
+    }
 
     readPipe(process.stdout);
     readPipe(process.stderr);
@@ -93,7 +79,7 @@ document.on("ready", async() => {
 
     console.line();
 
-    // pack resources
+    // pack exe resources
     args = [
         "bin/packfolder.exe",
         "src",
@@ -103,10 +89,11 @@ document.on("ready", async() => {
 
     console.log(args.join(" "));
 
-    process = sys.spawn(args, { stdout: "pipe", stderr: "pipe"});
-
-    if (!process) {
-        console.error("packfolder is not installed or not in path");
+    try {
+        process = sys.spawn(args, { stdout: "pipe", stderr: "pipe"});
+    }
+    catch (e) {
+        console.exception(e.message);
         return;
     }
 
