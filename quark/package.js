@@ -47,6 +47,9 @@ function checkFolder(folderPath, forWriting = false)
 
 async function convertSvgToIco(inp,outp) {
   const args = ["magick","-density","256x256","-background","transparent",inp,"-define","icon:auto-resize","-colors","256",outp];
+
+  console.log(args.join(" "));
+
   var r = await LogRunner.run(args);
   if(r != 0) throw "convertSvgToIco: failed to produce .ICO file";
 }
@@ -85,6 +88,9 @@ async function packageResources(folder,datfile) {
   if(!packfolder)
     throw "packageResources: no packfolder executable found";
   const args = [packfolder,folder,datfile,"-binary"];
+
+  console.log(args.join(" "));
+
   var r = await LogRunner.run(args);
   if(r != 0) throw `packfolder: failed to produce ${datfile} file, status=${r}`;
 }
@@ -102,6 +108,11 @@ function makePath(dir,subdirs,nameext) {
 
 function assembleExe(target,scapp,datfile,exefile, params = null) {
 
+  console.log(`${scapp} ${datfile} ${exefile} ${params}`);
+
+  for (let a in params)
+    console.log(`${a} ${params[a]}`);
+
   var r = Window.this.scapp.assembleExe(scapp,datfile,exefile,params);
   var msg;
   switch(r) {
@@ -114,6 +125,10 @@ function assembleExe(target,scapp,datfile,exefile, params = null) {
 }
 
 export async function assemble(params) {
+
+  for (let a in params) {
+    console.log(`${a} ${params[a]}`);
+  }
 
   LogRunner.clear();
 
