@@ -1,6 +1,8 @@
 body {
     border-spacing: 1em;
     color: #24292e;
+
+    font-family: Segoe UI;// !important;
 }
 
 h1 {
@@ -85,7 +87,7 @@ table > tbody > tr:hover {
 //    background-color: rgba(0,0,0,0.3);
 }
 
-div.vbox {
+.vbox {
     flow: vertical;
 
     border: 1dip solid #ebedef;
@@ -99,12 +101,12 @@ div.vbox {
     background: #ebedef;
 }
 
-div.hbox {
+.hbox {
     flow: horizontal;
 }
 
-div.vbox,
-div.hbox {
+.vbox,
+.hbox {
     // spacing of elements in flow
     border-spacing: 0.5em;
 }
