@@ -7,12 +7,12 @@ curl -LO https://github.com/c-smile/sciter-js-sdk/raw/f810da6a1887220e5d7e9d5a9e
 curl -LO https://github.com/c-smile/sciter-js-sdk/raw/f810da6a1887220e5d7e9d5a9ec6176508967f0d/bin/macosx/inspector.app
 curl -LO https://github.com/c-smile/sciter-js-sdk/raw/f810da6a1887220e5d7e9d5a9ec6176508967f0d/bin/macosx/libsciter.dylib
 
-chmox +x scapp inspector.app libsciter.dylib
+chmod +x scapp inspector.app libsciter.dylib
 
 REM sciter packfolder
 curl -LO https://github.com/c-smile/sciter-js-sdk/raw/f810da6a1887220e5d7e9d5a9ec6176508967f0d/bin/macosx/packfolder
 
-chmox +x packfolder
+chmod +x packfolder
 
 cd ..
 
