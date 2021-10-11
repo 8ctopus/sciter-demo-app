@@ -1,7 +1,7 @@
 mkdir -p bin/macosx
 
 # sciter 4.4.8.13
-curl -LO https://github.com/c-smile/sciter-js-sdk/f810da6a1887220e5d7e9d5a9ec6176508967f0d.zip
+curl -LO https://github.com/c-smile/sciter-js-sdk/archive/f810da6a1887220e5d7e9d5a9ec6176508967f0d.zip
 
 unzip f810da6a1887220e5d7e9d5a9ec6176508967f0d.zip bin/macosx -d .
 rm f810da6a1887220e5d7e9d5a9ec6176508967f0d.zip
