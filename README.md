@@ -42,9 +42,9 @@ php ../bin/spm.phar install
 
 - git clone the repository
 - add execution permissions `chmod +x install.sh scapp.sh`
-- run `./install.sh` to download the latest sciter binaries and the sciter vendor dir
+- run `./install.sh` to download the latest sciter binaries and the vendor dir (package manager doesn't work yet)
 - run script `./scapp.sh`
 
 ## build executable
 
-To build the app executable, run script `build-exe.bat`. (no mac version yet)
+To build the app executable, run script `build-exe.bat` (no mac version yet).
