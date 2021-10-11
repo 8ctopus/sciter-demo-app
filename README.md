@@ -25,7 +25,7 @@ Check the Windows pre-built executables [x32](https://github.com/8ctopus/sciter-
 - Sciter package manager itself requires php
 - [ImageMagick](https://imagemagick.org/) to build the exe icon
 
-## install
+## install on Windows
 
 - git clone the repository
 - run `install.bat` to download the latest sciter binaries and the sciter package manager
@@ -37,15 +37,13 @@ php ../bin/spm.phar install
 ```
 
 - run script `scapp.bat`
-- to refresh the app after changes to the html/css click `F5`
+
+## install on Mac
+
+- git clone the repository
+- run `install.sh` to download the latest sciter binaries and the sciter package manager
+- run script `scapp.sh`
 
 ## build executable
 
-To build the app executable, run script `build-exe.bat`.
-
-## check dependencies version
-
-```sh
-cd src
-php ../bin/spm.phar show
-```
+To build the app executable, run script `build-exe.bat`. (no mac version yet)
