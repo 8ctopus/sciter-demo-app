@@ -107,7 +107,7 @@ document.on("ready", async() => {
 
     // pack exe resources
     args = [
-        "bin/packfolder.exe",
+        "bin/win-x32/packfolder.exe",
         manifest["resources"],
         manifest["tmp"] + resources,
         "-binary",
@@ -158,13 +158,13 @@ function buildExe(type, manifest)
     // build exe
     const result = Window.this.scapp.assembleExe(
         // scapp exe
-        path + `bin/${type}/scapp.exe`,
+        path + `bin/win-${type}/scapp.exe`,
 
         // packed resources
         path + manifest["tmp"] + resources,
 
         // output binary
-        path + `bin/${type}/${manifest["productName"]}.exe`,
+        path + `bin/win-${type}/${manifest["productName"]}.exe`,
         manifest);
 
     switch (result) {
