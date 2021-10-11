@@ -17,12 +17,12 @@ It can be used as the starting point to build your own app.
 ## demo
 
 Check the Windows pre-built executables [x32](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.1/demo-x32.exe)
-[x64](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.1/demo-x64.exe) in Releases section.
+[x64](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.1/demo-x64.exe) in the Releases section.
 
 ## requirements
 
 - [Sciter package manager](https://github.com/8ctopus/sciter-package-manager) to install dependencies
-- Sciter package manager itself requires php
+- Sciter package manager itself requires php >= 7.3
 - [ImageMagick](https://imagemagick.org/) to build the exe icon
 
 ## install on Windows
@@ -41,8 +41,9 @@ php ../bin/spm.phar install
 ## install on Mac
 
 - git clone the repository
-- run `install.sh` to download the latest sciter binaries and the sciter package manager
-- run script `scapp.sh`
+- add execution permissions `chmod +x install.sh scapp.sh`
+- run `./install.sh` to download the latest sciter binaries and the sciter vendor dir
+- run script `./scapp.sh`
 
 ## build executable
 
