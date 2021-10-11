@@ -27,3 +27,4 @@ curl -LO https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.1/vend
 
 # unzip dependencies to vendor dir
 unzip vendor.zip
+rm vendor.zip
