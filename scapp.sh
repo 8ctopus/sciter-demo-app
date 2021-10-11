@@ -1,1 +1,1 @@
-/bin/macosx/scapp src/main.htm --debug
+bin/macosx/scapp src/main.htm --debug
