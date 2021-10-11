@@ -6,7 +6,7 @@ cd bin/macosx
 curl -LO https://github.com/c-smile/sciter-js-sdk/archive/f810da6a1887220e5d7e9d5a9ec6176508967f0d.zip
 
 # unzip mac binaries
-unzip f810da6a1887220e5d7e9d5a9ec6176508967f0d.zip sciter-js-sdk-f810da6a1887220e5d7e9d5a9ec6176508967f0d/bin/macosx/* -d .
+unzip -j f810da6a1887220e5d7e9d5a9ec6176508967f0d.zip sciter-js-sdk-f810da6a1887220e5d7e9d5a9ec6176508967f0d/bin/macosx/* -d .
 
 # delete zip
 rm f810da6a1887220e5d7e9d5a9ec6176508967f0d.zip
