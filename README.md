@@ -37,6 +37,7 @@ php ../bin/spm.phar install
 - git clone the repository
 - add execution permissions `chmod +x install.sh scapp.sh`
 - run `./install.sh` to download the latest sciter binaries and the vendor dir (package manager doesn't work yet)
+- start inspector app in `bin/macosx/` manually
 - run script `./scapp.sh`
 
 ## build executable (no mac version yet)
