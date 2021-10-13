@@ -19,26 +19,13 @@ It can be used as the starting point to build your own app.
 Check the Windows pre-built exes [x32](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.1/demo-x32.exe)
 [x64](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.1/demo-x64.exe) in the Releases section.
 
-## install on Windows
+## install
 
 - git clone the repository
-- run `install.bat` to download the latest sciter binaries and the sciter package manager
-- install packages
-
-```sh
-cd src
-php ../bin/spm.phar install
-```
-
-- run script `scapp.bat`
-
-## install on Mac
-
-- git clone the repository
-- add execution permissions `chmod +x install.sh scapp.sh`
-- run `./install.sh` to download the latest sciter binaries and the vendor dir (package manager doesn't work yet)
-- start inspector app in `bin/macosx/` manually
-- run script `./scapp.sh`
+- on Mac only `chmod +x install.sh scapp.sh`
+- run `install.bat` on Windows or `./install.sh` on Mac to download the latest sciter binaries and the sciter package manager
+- install packages `cd src && php ../bin/spm.phar install`
+- run `scapp.bat` or `./scapp.sh`
 
 ## build executable (no mac version yet)
 
