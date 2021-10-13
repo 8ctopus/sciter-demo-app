@@ -22,14 +22,3 @@ cd ..
 
 # sciter package manager 0.2.1
 curl -LO https://github.com/8ctopus/sciter-package-manager/releases/download/0.2.1/spm.phar
-
-cd ../src/
-
-# download vendor dir since spm doesn't work yet
-curl -LO https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.1/vendor.zip
-
-# unzip dependencies to vendor dir
-unzip vendor.zip
-
-# delete zip
-rm vendor.zip
