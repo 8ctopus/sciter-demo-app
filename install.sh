@@ -1,17 +1,17 @@
-# download sciter 4.4.8.13
-curl -LO https://github.com/c-smile/sciter-js-sdk/archive/f810da6a1887220e5d7e9d5a9ec6176508967f0d.zip
+# download sciter 4.4.8.14
+curl -LO https://github.com/c-smile/sciter-js-sdk/archive/b5c4d4efe4ed48fc96c7900c8e89e18c3c1c6397.zip
 
 # unzip binaries
-unzip f810da6a1887220e5d7e9d5a9ec6176508967f0d.zip sciter-js-sdk-f810da6a1887220e5d7e9d5a9ec6176508967f0d/bin/macosx/* -d .
+unzip b5c4d4efe4ed48fc96c7900c8e89e18c3c1c6397.zip sciter-js-sdk-b5c4d4efe4ed48fc96c7900c8e89e18c3c1c6397/bin/macosx/* -d .
 
 # move binaries
-mv sciter-js-sdk-f810da6a1887220e5d7e9d5a9ec6176508967f0d/bin .
+mv sciter-js-sdk-b5c4d4efe4ed48fc96c7900c8e89e18c3c1c6397/bin .
 
 # delete old dir
-rmdir sciter-js-sdk-f810da6a1887220e5d7e9d5a9ec6176508967f0d
+rmdir sciter-js-sdk-b5c4d4efe4ed48fc96c7900c8e89e18c3c1c6397
 
 # delete zip
-rm f810da6a1887220e5d7e9d5a9ec6176508967f0d.zip
+rm b5c4d4efe4ed48fc96c7900c8e89e18c3c1c6397.zip
 
 cd bin/macosx
 
