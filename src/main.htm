@@ -151,9 +151,16 @@ try {
         // ask for user confirmation
         const result = dialogs.show("question", i18n.m("messages:cancel_on_quit", "Operation in progress.\r\n\r\nCancel?"), "yes no");
 
-        if (result !== "yes")
+        if (result !== "yes") {
             // cancel quit
             event.preventDefault();
+            return;
+        }
+
+        // flush i/o queue before closing app otherwise the previous line never gets executed
+        for (let n = 0; n < 100; ++n)
+            if (!Window.this.doEvent("I/O"))
+                break;
     });
 
     // on close
