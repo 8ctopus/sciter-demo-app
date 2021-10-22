@@ -2,4 +2,4 @@
 /src/vendor/
 
 /*.sublime-workspace
-/test.log
+/*.log
