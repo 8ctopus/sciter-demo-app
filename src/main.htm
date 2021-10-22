@@ -36,17 +36,21 @@ import {dialogs} from "vendor/8ctopus/sciter-dialogs/src/dialogs.js";
 import * as utils from "vendor/8ctopus/sciter-utils/src/utils.js";
 import {analytics} from "vendor/8ctopus/sciter-analytics/src/analytics.js";
 
-const debug      = true;
 const appName    = "sciter demo app";
 const appVersion = "1.0.1";
 
+let debug;
+const dir = URL.fromPath(sys.cwd());
+
 try {
-    if (debug)
-        // initialize logger
-        logger.init({
-            file: URL.toPath(__DIR__ + "../test.log"),
-            clear: true,
-        });
+    // do not debug in release
+    debug = __DIR__.startsWith("this://app/") ? false : true;
+
+    // initialize logger
+    logger.init({
+        file: URL.toPath(dir + "/app.log"),
+        clear: true,
+    });
 
     // attach logger to console
     logger.attach();
