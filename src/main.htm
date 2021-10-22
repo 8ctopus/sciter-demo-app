@@ -67,7 +67,7 @@ try {
 }
 
 try {
-    document.on("ready", function() {
+    document.ready = function() {
         // subscribe to logger messages
         logger.plaintext(document.$("plaintext#logger"));
 
@@ -144,7 +144,7 @@ try {
 
         // translate window
         i18n.i18n(document);
-    });
+    }
 
     // on close query
     document.on("closerequest", (event) => {
