@@ -1,6 +1,6 @@
 {
     "productName": "sciter demo app",
-    "productVersion": "1.0.2",
+    "productVersion": "1.0.4",
     "productCopyright": "https://sciter.com/",
 
     "icon": "src/icon.svg",
