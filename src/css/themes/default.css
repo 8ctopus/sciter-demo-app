@@ -1,8 +1,12 @@
 body {
-    border-spacing: 1em;
-    color: #24292e;
+    margin: 0;
 
+    border-radius: 0;
+
+    color: #24292e;
     font-family: Segoe UI;// !important;
+    //font-rendering: snap-pixel;
+    font-size: 10pt;
 }
 
 h1 {
@@ -14,7 +18,7 @@ label {
     overflow-wrap: break-word;
 
     vertical-align: middle;
-    font-size: 9pt;
+    //font-size: 9pt;
 }
 
 a {
@@ -34,7 +38,7 @@ button:focus,
 input:focus,
 a:focus {
     // https://www.w3docs.com/snippets/css/how-to-create-a-glowing-border-around-an-input-field.html
-    box-shadow: 0 0 5dip #26bf47;
+    box-shadow: 0 0 5dip #60CFFF;
 }
 
 input {
@@ -48,10 +52,14 @@ select {
 
 plaintext {
     height: 200dip;
+
+    border: 1dip solid rgba(0,0,0,0.1);
 }
 
 table {
+    overflow-x: hidden;
     overflow-y: auto;
+    overflow-wrap: normal;
 
     border-spacing: 0;
     border: 1px solid #ccc;
@@ -64,16 +72,22 @@ table > thead {
 }
 
 table > thead > tr > th {
-    border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 
-    padding-left: 0.3em;
+    padding: 0 0.3em;
+}
+
+table > thead > tr > th:last-child {
+    border-right: none;
 }
 
 table > tbody > tr > td {
+    overflow-x: hidden;
+
     border: 1px solid #ccc;
 
-    padding-left: 0.3em;
+    padding: 0 0.3em;
 
     color: #222;
     white-space: nowrap;
@@ -91,24 +105,10 @@ table > tbody > tr:hover {
     flow: vertical;
 
     border: 1dip solid #ebedef;
-    border-radius: 6dip;
-
-    padding: 2em;
-
-    // spacing of elements in flow
-    border-spacing: 1.0em;
-
-    background: #ebedef;
 }
 
 .hbox {
     flow: horizontal;
-}
-
-.vbox,
-.hbox {
-    // spacing of elements in flow
-    border-spacing: 0.5em;
 }
 
 .right {
@@ -118,4 +118,42 @@ table > tbody > tr:hover {
 .center {
     margin-left: *;
     margin-right: *;
+}
+
+.border-spacing {
+    border-spacing: 0.5em;
+}
+
+.mt {
+    margin-top: 0.5em;
+}
+
+.mb {
+    margin-bottom: 0.5em;
+}
+
+@set std-progress2 < std-progress {
+    :root {
+        //width: *;
+        //height: *;
+
+        border: none; //1dip solid rgba(0,0,0,0.1);
+
+        padding: 0;
+
+        background-color: color(widget-back);
+    }
+
+    // bar inside progress
+    :root:busy::marker {
+        background-image: url(path: M 0 0 L 9 0 L 9 9 L 0 9 Z);
+        background-size: 33% 100%;
+
+        fill: cyan;
+    }
+}
+
+progress {
+    display: inline-block;
+    style-set: std-progress2;
 }

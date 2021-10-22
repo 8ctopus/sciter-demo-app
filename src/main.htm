@@ -258,7 +258,7 @@ try {
 <body>
     <pagecontrol header-position="top" header-visible="true">
         <tab caption="login" #tsLogin selected>
-            <div .vbox>
+            <div .vbox .border-spacing>
                 <h1 data-i18n> Sign-in </h1>
                 <label for="email" data-i18n> Username or email address </label>
                 <input type="text" #email />
@@ -271,7 +271,7 @@ try {
             </div>
         </tab>
         <tab caption="signup" #tsSignup>
-            <div .vbox>
+            <div .vbox .border-spacing>
                 <h1 data-i18n> Sign Up </h1>
                 <label for="email2" data-i18n> Email address </label>
                 <input type="text" #email2 />
@@ -281,12 +281,12 @@ try {
             </div>
         </tab>
         <tab caption="dashboard" #tsDashboard>
-            <div .vbox>
+            <div .vbox .border-spacing>
                 <h1 data-i18n> Your Dashboard </h1>
             </div>
         </tab>
         <tab caption="reset" #tsReset>
-            <div .vbox>
+            <div .vbox .border-spacing>
                 <h1 data-i18n> Reset your password </h1>
                 <label for="email2" data-i18n> Enter your user account's verified email address and we will send you a password reset link. </label>
                 <input type="text" #email2 />
@@ -294,7 +294,7 @@ try {
             </div>
         </tab>
         <tab caption="sent" #tsSent>
-            <div .vbox>
+            <div .vbox .border-spacing>
                 <h1 data-i18n> Password reset email sent! </h1>
             </div>
         </tab>
