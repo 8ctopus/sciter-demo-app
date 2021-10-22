@@ -4,8 +4,9 @@ body {
     border-radius: 0;
 
     color: #24292e;
-    font-family: Segoe UI;// !important;
-    //font-rendering: snap-pixel;
+
+    font-family: "Segoe UI";// !important;
+    font-rendering: snap-pixel;
     font-size: 10pt;
 }
 
@@ -52,6 +53,8 @@ select {
 
 plaintext {
     height: 200dip;
+
+    overflow-x: hidden;
 
     border: 1dip solid rgba(0,0,0,0.1);
 }
@@ -130,6 +133,10 @@ table > tbody > tr:hover {
 
 .mb {
     margin-bottom: 0.5em;
+}
+
+.pd {
+    padding: 0.5em;
 }
 
 @set std-progress2 < std-progress {
