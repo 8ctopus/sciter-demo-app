@@ -44,16 +44,18 @@ document.on("ready", async() => {
     utils.addReloadWindow();
 
     // close window on escape
-    utils.closeWindowOnEscape();
+    utils.closeWindowOnEscape(Window.this);
 
     // center window on screen
-    utils.centerWindow("screen");
+    utils.centerWindow(Window.this, "screen");
 
     // log sciter version
     console.debug(utils.sciterInfo());
 
+    console.line();
+
     // load manifest info
-    let url = document.url(`manifest.json`);
+    let url = document.url(`src/manifest.json`);
 
     // get content
     let manifest = fetch(url, {sync: true});
@@ -67,11 +69,13 @@ document.on("ready", async() => {
     try {
         manifest = manifest.json();
     } catch (e) {
-        console.exception(`Convert manifest to json - FAILED - ${e.message}`);
+        console.exception(`Convert manifest to json - FAILED`, e);
         return;
     }
 
-    console.log(manifest);
+    console.debug("manifest", manifest);
+
+    console.line();
 
     // create exe icon
     let args = [
@@ -86,7 +90,7 @@ document.on("ready", async() => {
         manifest["tmp"] + icon,
     ];
 
-    console.log(args.join(" "));
+    console.debug("magick arguments", args);
 
     let process;
 
@@ -94,7 +98,7 @@ document.on("ready", async() => {
         process = sys.spawn(args, { stdout: "pipe", stderr: "pipe"});
     }
     catch (e) {
-        console.exception(e.message);
+        console.exception(e);
         return;
     }
 
@@ -108,18 +112,23 @@ document.on("ready", async() => {
     // pack exe resources
     args = [
         "bin/win-x32/packfolder.exe",
+        // what to pack
         manifest["resources"],
+        // destination file
         manifest["tmp"] + resources,
+        // archive type
         "-binary",
     ];
 
-    console.log(args.join(" "));
+    console.debug("packfolder arguments", args);
+
+    console.line();
 
     try {
         process = sys.spawn(args, { stdout: "pipe", stderr: "pipe"});
     }
     catch (e) {
-        console.exception(e.message);
+        console.exception(e);
         return;
     }
 
@@ -207,7 +216,7 @@ async function readPipe(pipe)
         if (e.message == "socket is not connected")
             return;
         else
-            console.error("exception");
+            console.exception(e);
     }
 }
 
