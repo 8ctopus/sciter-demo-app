@@ -34,9 +34,6 @@ import {dialogs} from "vendor/8ctopus/sciter-dialogs/src/dialogs.js";
 import * as utils from "vendor/8ctopus/sciter-utils/src/utils.js";
 import {analytics} from "vendor/8ctopus/sciter-analytics/src/analytics.js";
 
-const appName    = "sciter demo app";
-const appVersion = "1.0.4";
-
 let debug;
 const dir = URL.fromPath(sys.cwd());
 
@@ -46,8 +43,8 @@ try {
 
     // initialize logger
     logger.init({
-        file: URL.toPath(dir + "/app.log"),
-        clear: true,
+        url: dir + "/app-%DATE%.log",
+        clear: debug,
     });
 
     // attach logger to console
@@ -61,7 +58,7 @@ try {
         logger.debug();
 
 } catch (e) {
-    console.error(e.message + e.stack);
+    console.error(e);
 }
 
 try {
@@ -70,20 +67,42 @@ try {
         logger.plaintext(document.$("plaintext#logger"));
 
         // add support for F5 reload
-        utils.addReloadWindow();
+        utils.addReloadWindow(Window.this);
 
         // close window on escape
-        utils.closeWindowOnEscape();
+        utils.closeWindowOnEscape(Window.this);
 
         // center window on screen
-        utils.centerWindow("screen");
+        utils.centerWindow(Window.this, "screen");
 
-        // bring window to front
-        utils.windowToFront();
+        // fixes win + m not working
+        // https://sciter.com/forums/topic/windows-m-not-working-when-window-resizable-is-false/
+        Window.this.isMinimizable = true;
 
         if (debug)
             // log sciter version
             console.debug(utils.sciterInfo());
+
+        console.log(`device DPI = pixels in 1 inch - ${utils.devicePixels()}`);
+
+        // load manifest
+        let manifest = {};
+
+        try {
+            utils.loadJson(`${__DIR__}manifest.json`, manifest);
+
+            // set window title
+            const version = `${manifest.productName} ${manifest.productVersion}`;
+
+            console.note("Load manifest - OK");
+
+            document.$("title").innerText = version;
+        }
+        catch (e) {
+            console.exception("Load manifest - FAILED", e);
+            Window.this.close();
+            return;
+        }
 
         // set endpoint
         analytics.init({
@@ -93,8 +112,8 @@ try {
 
         // add environmental variables
         analytics.env({
-            name: appName,
-            version: appVersion,
+            name: manifest.productName,
+            version: manifest.productVersion,
         });
 
         // log event
@@ -106,10 +125,6 @@ try {
         // log monitors
         utils.logMonitors();
         console.log(`on monitor ${Window.this.screen + 1}`);
-
-        // fixes win + m not working
-        // https://sciter.com/forums/topic/windows-m-not-working-when-window-resizable-is-false/
-        Window.this.isMinimizable = true;
 
         // configure dialogs
         dialogs.setOptions({
@@ -131,8 +146,8 @@ try {
             interpolation: {
                 escapeValue: false,
                 defaultVariables: {
-                    name: appName,
-                    version: appVersion,
+                    name: manifest.productName,
+                    version: manifest.productVersion,
                 },
             },
         };
@@ -142,6 +157,12 @@ try {
 
         // translate window
         i18n.i18n(document);
+
+        // bring window to front and set input focus
+        if (Window.this.activate(true))
+            console.log("Activate window - OK");
+        else
+            console.error("Activate window - FAILED");
     }
 
     // on close query
@@ -247,7 +268,7 @@ try {
         i18n.i18n(root);
     }
 } catch (e) {
-    console.exception(e.message + e.stack);
+    console.exception(e);
 }
 
 </script>
