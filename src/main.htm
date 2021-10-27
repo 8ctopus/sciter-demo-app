@@ -29,9 +29,9 @@ plaintext#logger {
 
 import * as sys from "@sys";
 import {logger} from "vendor/8ctopus/sciter-logger/src/logger.js";
+import * as utils from "vendor/8ctopus/sciter-utils/src/utils.js";
 import {i18n} from "vendor/8ctopus/sciter-i18n/src/i18n.js";
 import {dialogs} from "vendor/8ctopus/sciter-dialogs/src/dialogs.js";
-import * as utils from "vendor/8ctopus/sciter-utils/src/utils.js";
 import {analytics} from "vendor/8ctopus/sciter-analytics/src/analytics.js";
 
 // current working directory
@@ -305,17 +305,6 @@ function unhandledExceptionHandler(e)
 }
 
 /**
- * Translate dialog callback
- * @param DOMElement root
- * @return void
- */
-function translateDialog(root)
-{
-    // translate dialog
-    i18n.i18n(root);
-}
-
-/**
  * Show tray icon
  * @param string icon
  * @param string text
@@ -327,6 +316,17 @@ async function showTrayIcon(icon, text)
         image: await Graphics.Image.load(icon),
         text: text,
     });
+}
+
+/**
+ * Translate dialog callback
+ * @param DOMElement root
+ * @return void
+ */
+function translateDialog(root)
+{
+    // translate dialog
+    i18n.i18n(root);
 }
 
 </script>
