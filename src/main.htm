@@ -159,6 +159,8 @@ document.ready = function() {
     else
         console.error("Activate window - FAILED");
 
+    setTrayIcon(`${dir}/icon.svg`, version);
+
     init = true;
 }
 
@@ -288,6 +290,20 @@ function translateDialog(root)
 {
     // translate dialog
     i18n.i18n(root);
+}
+
+/**
+ * Set tray icon
+ * @param string icon
+ * @param string text
+ * @return void
+ */
+async function setTrayIcon(icon, text)
+{
+    Window.this.trayIcon({
+        image: await Graphics.Image.load(icon),
+        text: text,
+    });
 }
 
 </script>
