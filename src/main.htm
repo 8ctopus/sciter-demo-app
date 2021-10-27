@@ -34,241 +34,251 @@ import {dialogs} from "vendor/8ctopus/sciter-dialogs/src/dialogs.js";
 import * as utils from "vendor/8ctopus/sciter-utils/src/utils.js";
 import {analytics} from "vendor/8ctopus/sciter-analytics/src/analytics.js";
 
+// current working directory
+const cwd = URL.fromPath(sys.cwd());
+
+// app directory (will point to resources in release)
+const dir = __DIR__.replace(/\/$/, "");
+
 let debug;
-const dir = URL.fromPath(sys.cwd());
+let init = false;
 
-try {
-    // do not debug in release
-    debug = __DIR__.startsWith("this://app/") ? false : true;
+// do not debug in release
+debug = dir.startsWith("this://app") ? false : true;
 
-    // initialize logger
-    logger.init({
-        url: dir + "/app-%DATE%.log",
-        clear: debug,
+// capture unhandled exceptions
+logger.capture(unhandledExceptionHandler);
+
+// initialize logger
+logger.init({
+    url: cwd + "/app-%DATE%.log",
+    clear: debug,
+});
+
+// attach logger to console
+logger.attach();
+
+// log if sciter running in debug
+if (debug)
+    logger.debug();
+
+document.ready = function() {
+    // subscribe to logger messages
+    logger.plaintext(document.$("plaintext#logger"));
+
+    // add support for F5 reload
+    utils.addReloadWindow(Window.this);
+
+    // close window on escape
+    utils.closeWindowOnEscape(Window.this);
+
+    // center window on screen
+    utils.centerWindow(Window.this, "screen");
+
+    // fixes win + m not working
+    // https://sciter.com/forums/topic/windows-m-not-working-when-window-resizable-is-false/
+    Window.this.isMinimizable = true;
+
+    if (debug)
+        // log sciter version
+        console.debug(utils.sciterInfo());
+
+    console.log(`device DPI = pixels in 1 inch - ${utils.devicePixels()}`);
+
+    // load manifest
+    let manifest = {};
+
+    utils.loadJson(`${dir}/manifest.json`, manifest);
+
+    console.log("Load manifest - OK");
+
+    // set window title
+    const version = `${manifest.productName} ${manifest.productVersion}`;
+    Window.this.caption = version;
+
+    // set endpoint
+    analytics.init({
+        //endpoint: "http://localhost/index.php"
+        log: true,
     });
 
-    // attach logger to console
-    logger.attach();
+    // add environmental variables
+    analytics.env({
+        name: manifest.productName,
+        version: manifest.productVersion,
+    });
 
-    // capture unhandled exceptions
-    logger.capture();
+    // log event
+    analytics.event("app started");
 
-    // log if sciter running in debug
-    if (debug)
-        logger.debug();
+    // watch app close
+    analytics.watch("closerequest", null, "app close request");
 
-} catch (e) {
-    console.error(e);
+    // log monitors
+    utils.logMonitors();
+    console.log(`on monitor ${Window.this.screen + 1}`);
+
+    // configure dialogs
+    dialogs.setOptions({
+        logging: true,
+        callback: translateDialog,
+    });
+
+    // initialize translation engine
+    const locale = "fr";
+    const config = {
+        // i18n logging
+        logging: debug,
+
+        // debug i18next
+        debug: false,
+
+        defaultValue: debug ? " (i18n)" : "",
+
+        interpolation: {
+            escapeValue: false,
+            defaultVariables: {
+                name: manifest.productName,
+                version: manifest.productVersion,
+            },
+        },
+    };
+
+    if (i18n.init(locale, document.url(`locales/${locale}.json`), config))
+        console.log("i18n init - OK");
+
+    // translate window
+    i18n.i18n(document);
+
+    // bring window to front and set input focus
+    if (Window.this.activate(true))
+        console.log("Activate window - OK");
+    else
+        console.error("Activate window - FAILED");
 }
 
-try {
-    document.ready = function() {
-        // subscribe to logger messages
-        logger.plaintext(document.$("plaintext#logger"));
+// on close query
+document.on("closerequest", function() {
+    // ask for user confirmation
+    const result = dialogs.show("question", i18n.m("messages:cancel_on_quit", "Operation in progress.\r\n\r\nCancel?"), "yes no");
 
-        // add support for F5 reload
-        utils.addReloadWindow(Window.this);
-
-        // close window on escape
-        utils.closeWindowOnEscape(Window.this);
-
-        // center window on screen
-        utils.centerWindow(Window.this, "screen");
-
-        // fixes win + m not working
-        // https://sciter.com/forums/topic/windows-m-not-working-when-window-resizable-is-false/
-        Window.this.isMinimizable = true;
-
-        if (debug)
-            // log sciter version
-            console.debug(utils.sciterInfo());
-
-        console.log(`device DPI = pixels in 1 inch - ${utils.devicePixels()}`);
-
-        // load manifest
-        let manifest = {};
-
-        try {
-            utils.loadJson(`${__DIR__}manifest.json`, manifest);
-
-            // set window title
-            const version = `${manifest.productName} ${manifest.productVersion}`;
-
-            console.note("Load manifest - OK");
-
-            document.$("title").innerText = version;
-        }
-        catch (e) {
-            console.exception("Load manifest - FAILED", e);
-            Window.this.close();
-            return;
-        }
-
-        // set endpoint
-        analytics.init({
-            //endpoint: "http://localhost/index.php"
-            log: true,
-        });
-
-        // add environmental variables
-        analytics.env({
-            name: manifest.productName,
-            version: manifest.productVersion,
-        });
-
-        // log event
-        analytics.event("app started");
-
-        // watch app close
-        analytics.watch("closerequest", null, "app close request");
-
-        // log monitors
-        utils.logMonitors();
-        console.log(`on monitor ${Window.this.screen + 1}`);
-
-        // configure dialogs
-        dialogs.setOptions({
-            logging: true,
-            callback: translateDialog,
-        });
-
-        // initialize translation engine
-        const locale = "fr";
-        const config = {
-            // i18n logging
-            logging: debug,
-
-            // debug i18next
-            debug: false,
-
-            defaultValue: debug ? " (i18n)" : "",
-
-            interpolation: {
-                escapeValue: false,
-                defaultVariables: {
-                    name: manifest.productName,
-                    version: manifest.productVersion,
-                },
-            },
-        };
-
-        if (i18n.init(locale, document.url(`locales/${locale}.json`), config))
-            console.log("i18n init - OK");
-
-        // translate window
-        i18n.i18n(document);
-
-        // bring window to front and set input focus
-        if (Window.this.activate(true))
-            console.log("Activate window - OK");
-        else
-            console.error("Activate window - FAILED");
+    if (result !== "yes") {
+        // cancel quit
+        event.preventDefault();
+        return;
     }
 
-    // on close query
-    document.on("closerequest", (event) => {
-        // ask for user confirmation
-        const result = dialogs.show("question", i18n.m("messages:cancel_on_quit", "Operation in progress.\r\n\r\nCancel?"), "yes no");
+    // flush i/o queue before closing app otherwise the previous line never gets executed
+    utils.flushIOQueue();
+});
 
-        if (result !== "yes") {
-            // cancel quit
-            event.preventDefault();
-            return;
-        }
+// on close
+document.on("close", function() {
+    console.log("Close application");
+});
 
-        // flush i/o queue before closing app otherwise the previous line never gets executed
-        for (let n = 0; n < 100; ++n)
-            if (!Window.this.doEvent("I/O"))
-                break;
-    });
+document.on("click", function(event, element) {
+    const pagecontrol = document.$("pagecontrol");
 
-    // on close
-    document.on("close", function() {
-        console.log("Close application");
-    });
+    switch (element.id) {
+        case "btLogin":
+            pagecontrol.showTab("tsDashboard");
+            break;
 
-    document.on("click", function(event, element) {
-        const pagecontrol = document.$("pagecontrol");
+        case "createAccount":
+            pagecontrol.showTab("tsSignup");
+            break;
 
-        switch (element.id) {
-            case "btLogin":
-                pagecontrol.showTab("tsDashboard");
-                break;
+        case "btSignUp":
+            pagecontrol.showTab("tsLogin");
+            break;
 
-            case "createAccount":
-                pagecontrol.showTab("tsSignup");
-                break;
+        case "forgotPassword":
+            pagecontrol.showTab("tsReset");
+            break;
 
-            case "btSignUp":
-                pagecontrol.showTab("tsLogin");
-                break;
+        case "reset":
+            pagecontrol.showTab("tsSent");
+            break;
 
-            case "forgotPassword":
-                pagecontrol.showTab("tsReset");
-                break;
+        case "showEvents":
+            analytics.log();
+            break;
 
-            case "reset":
-                pagecontrol.showTab("tsSent");
-                break;
+        case "sendEvents":
+            analytics.send();
+            break;
 
-            case "showEvents":
-                analytics.log();
-                break;
-
-            case "sendEvents":
-                analytics.send();
-                break;
-
-            default:
-        }
-    });
-
-    // handle show tab event
-    document.on("showtab", "pagecontrol", function(event, element) {
-        console.debug(event.detail.tab);
-
-        switch (event.detail.tab) {
-            case "tsLogin":
-                event = "start login";
-                break;
-
-            case "tsSignup":
-                event = "start signup";
-                break;
-
-            case "tsDashboard":
-                event = "end login";
-                break;
-
-            case "tsReset":
-                event = "start reset";
-                break;
-
-            case "tsSent":
-                event = "end reset";
-                break;
-
-            default:
-        }
-
-        //console.debug(`event - ${event}`);
-
-        // log event
-        analytics.event(event);
-    });
-
-    /**
-     * Translate dialog callback
-     * @param DOMElement root
-     * @return void
-     */
-    function translateDialog(root)
-    {
-        // translate dialog
-        i18n.i18n(root);
+        default:
     }
-} catch (e) {
-    console.exception(e);
+});
+
+// handle show tab event
+document.on("showtab", "pagecontrol", function(event, element) {
+    console.debug(event.detail.tab);
+
+    switch (event.detail.tab) {
+        case "tsLogin":
+            event = "start login";
+            break;
+
+        case "tsSignup":
+            event = "start signup";
+            break;
+
+        case "tsDashboard":
+            event = "end login";
+            break;
+
+        case "tsReset":
+            event = "start reset";
+            break;
+
+        case "tsSent":
+            event = "end reset";
+            break;
+
+        default:
+    }
+
+    //console.debug(`event - ${event}`);
+
+    // log event
+    analytics.event(event);
+});
+
+/**
+ * Unhandled exception handler
+ * @param  Error|String e
+ * @return void
+ */
+function unhandledExceptionHandler(e)
+{
+    typeof console.exception === "function" ? console.exception(e) : console.error(e);
+
+    // check if app has passed init point
+    if (init)
+        // continue running
+        return;
+
+    // close app (can still be stopped in closerequest event)
+    console.log("Application must close...");
+
+    // flush i/o queue before closing app otherwise the previous line never gets executed
+    utils.flushIOQueue();
+
+    Window.this.close();
+}
+
+/**
+ * Translate dialog callback
+ * @param DOMElement root
+ * @return void
+ */
+function translateDialog(root)
+{
+    // translate dialog
+    i18n.i18n(root);
 }
 
 </script>
