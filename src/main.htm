@@ -159,6 +159,10 @@ document.ready = function() {
 
 // on close query
 document.on("closerequest", function() {
+    // do not ask for close request if init is not complete
+    if (!init)
+        return;
+
     // ask for user confirmation
     const result = dialogs.show("question", i18n.m("messages:cancel_on_quit", "Operation in progress.\r\n\r\nCancel?"), "yes no");
 
@@ -262,7 +266,7 @@ function unhandledExceptionHandler(e)
         return;
 
     // close app (can still be stopped in closerequest event)
-    console.log("Application must close...");
+    console.log("Close app...");
 
     // flush i/o queue before closing app otherwise the previous line never gets executed
     utils.flushIOQueue();
