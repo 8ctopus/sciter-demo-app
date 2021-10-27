@@ -66,6 +66,9 @@ document.ready = function() {
     // subscribe to logger messages
     logger.plaintext(document.$("plaintext#logger"));
 
+    // get command line arguments
+    console.debug("command line arguments", Window.this.scapp.argv);
+
     // add support for F5 reload
     utils.addReloadWindow(Window.this);
 
@@ -155,6 +158,8 @@ document.ready = function() {
         console.log("Activate window - OK");
     else
         console.error("Activate window - FAILED");
+
+    init = true;
 }
 
 // on close query
