@@ -41,6 +41,7 @@ const cwd = URL.fromPath(sys.cwd());
 const dir = __DIR__.replace(/\/$/, "");
 
 let debug;
+let version;
 let init = false;
 
 // do not debug in release
@@ -96,7 +97,7 @@ document.ready = function() {
     console.log("Load manifest - OK");
 
     // set window title
-    const version = `${manifest.productName} ${manifest.productVersion}`;
+    version = `${manifest.productName} ${manifest.productVersion}`;
     Window.this.caption = version;
 
     // set endpoint
@@ -158,8 +159,6 @@ document.ready = function() {
         console.log("Activate window - OK");
     else
         console.error("Activate window - FAILED");
-
-    setTrayIcon(`${dir}/icon.svg`, version);
 
     init = true;
 }
@@ -258,6 +257,30 @@ document.on("showtab", "pagecontrol", function(event, element) {
     analytics.event(event);
 });
 
+/// window state changes
+Window.this.on("statechange", function(event) {
+    if (Window.this.state !== Window.WINDOW_MINIMIZED)
+        return;
+
+    // hide window
+    console.log("Minimize window...");
+    Window.this.state = Window.WINDOW_HIDDEN;
+
+    // show tray icon
+    showTrayIcon(`${dir}/icon.svg`, version);
+});
+
+/// click on tray icon
+Window.this.on("trayiconclick", function(event) {
+    console.log("Show window...");
+    Window.this.state = Window.WINDOW_SHOWN;
+
+    Window.this.activate(true);
+
+    // remove tray icon
+    Window.this.trayIcon("remove");
+});
+
 /**
  * Unhandled exception handler
  * @param  Error|String e
@@ -293,12 +316,12 @@ function translateDialog(root)
 }
 
 /**
- * Set tray icon
+ * Show tray icon
  * @param string icon
  * @param string text
  * @return void
  */
-async function setTrayIcon(icon, text)
+async function showTrayIcon(icon, text)
 {
     Window.this.trayIcon({
         image: await Graphics.Image.load(icon),
