@@ -178,13 +178,14 @@ document.on("closerequest", function() {
         return;
     }
 
-    // flush i/o queue before closing app otherwise the previous line never gets executed
-    utils.flushIOQueue();
 });
 
 // on close
-document.on("close", function() {
+document.on("beforeunload", function() {
     console.log("Close application");
+
+    // flush i/o queue before closing app otherwise the previous line never gets executed
+    utils.flushIOQueue();
 });
 
 document.on("click", function(event, element) {
