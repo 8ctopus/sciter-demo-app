@@ -30,8 +30,8 @@ plaintext#logger {
 import * as sys from "@sys";
 import {logger} from "vendor/8ctopus/sciter-logger/src/logger.js";
 import * as utils from "vendor/8ctopus/sciter-utils/src/utils.js";
-import {i18n} from "vendor/8ctopus/sciter-i18n/src/i18n.js";
 import {dialogs} from "vendor/8ctopus/sciter-dialogs/src/dialogs.js";
+import {i18n} from "vendor/8ctopus/sciter-i18n/src/i18n.js";
 import {analytics} from "vendor/8ctopus/sciter-analytics/src/analytics.js";
 
 // current working directory
@@ -67,8 +67,14 @@ document.ready = function() {
     // subscribe to logger messages
     logger.plaintext(document.$("plaintext#logger"));
 
+    if (debug)
+        // log sciter version
+        console.debug(utils.sciterInfo());
+
     // get command line arguments
     console.debug("command line arguments", Window.this.scapp.argv);
+
+    console.debug(`device DPI = pixels in 1 inch - ${utils.devicePixels()}`);
 
     // add support for F5 reload
     utils.addReloadWindow(Window.this);
@@ -82,12 +88,6 @@ document.ready = function() {
     // fixes win + m not working
     // https://sciter.com/forums/topic/windows-m-not-working-when-window-resizable-is-false/
     Window.this.isMinimizable = true;
-
-    if (debug)
-        // log sciter version
-        console.debug(utils.sciterInfo());
-
-    console.log(`device DPI = pixels in 1 inch - ${utils.devicePixels()}`);
 
     // load manifest
     let manifest = {};
