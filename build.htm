@@ -224,7 +224,7 @@ document.ready = async() => {
  * @param  object manifest
  * @return void
  */
-function buildBinary(cwd, platform, manifest)
+async function buildBinary(cwd, platform, manifest)
 {
     // add icon file to manifest
     manifest["icofile"] = URL.toPath(cwd + "/" + manifest["tmp"] + icon);
@@ -241,10 +241,10 @@ function buildBinary(cwd, platform, manifest)
     // packed resources
     const res = URL.toPath(cwd + "/" + manifest["tmp"] + resources);
 
-    console.debug("scapp -", scapp);
-    console.debug("resources -", res);
-    console.debug("binary -", binary);
-    console.debug("manifest -", manifest);
+    //console.debug("scapp -", scapp);
+    //console.debug("resources -", res);
+    //console.debug("binary -", binary);
+    //console.debug("manifest -", manifest);
 
     // delete binary if it exists
     if (sys.fs.$stat(binary)) {
