@@ -16,10 +16,11 @@ plaintext#logger {
 </style>
 <script type="module">
 
+import * as env from "@env";
+import * as sciter from "@sciter";
+import * as sys from "@sys";
 import {logger} from "src/vendor/8ctopus/sciter-logger/src/logger.js";
 import * as utils from "src/vendor/8ctopus/sciter-utils/src/utils.js";
-import * as sys from "@sys";
-import * as sciter from "@sciter";
 
 const resources = "resources.dat";
 const icon      = "app.ico";
@@ -51,6 +52,32 @@ document.ready = async() => {
 
     // log sciter version
     console.debug(utils.sciterInfo());
+
+    console.line();
+
+    // get platform
+    const platform = env.PLATFORM.toLowerCase();
+
+    console.log(`platform ${platform}`);
+
+    let packfolder;
+
+    switch (platform) {
+        case "windows":
+            packfolder = "bin/win-x32/packfolder.exe";
+            break;
+
+        case "linux":
+            packfolder = "bin/linux/packfolder";
+            break;
+
+        case "osx":
+            packfolder = "bin/macosx/packfolder";
+            break;
+
+        default:
+            throw new Error(`unsupported plaform - ${platform}`);
+    }
 
     console.line();
 
@@ -119,9 +146,9 @@ document.ready = async() => {
 
     console.line();
 
-    // pack exe resources
+    // pack resources
     args = [
-        "bin/win-x32/packfolder.exe",
+        packfolder,
         // what to pack
         manifest["resources"],
         // destination file
