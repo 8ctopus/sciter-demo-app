@@ -22,12 +22,10 @@ case "${machine}" in
         ;;
 
     "linux")
-        bin/linux/scapp build.htm --debug
-        chmod +x bin/*
+        bin/linux/scapp build.htm --debug &
         ;;
 
     "macosx")
-        bin/macosx/scapp build.htm --debug
-        chmod +x bin/*
+        bin/macosx/scapp build.htm --debug &
         ;;
 esac

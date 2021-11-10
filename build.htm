@@ -284,6 +284,13 @@ function buildBinary(cwd, platform, manifest)
             console.error(`Build binary ${platform} - FAILED - unknown error - ${result}`);
             break;
     }
+
+    // make binary executable
+    if (!platform.startsWith("win-"))
+        if (setExecuteFlag(binary))
+            console.log("Set execute flag - OK");
+        else
+            console.error("Set execute flag - FAILED");
 }
 
 async function readPipe(pipe)
@@ -301,6 +308,40 @@ async function readPipe(pipe)
         else
             console.exception(e);
     }
+}
+
+/**
+ * Set execute flag
+ * @param string binary
+ * @return bool
+ */
+function setExecuteFlag(binary)
+{
+    // pack resources
+    let args = [
+        "chmod",
+        "+x",
+        binary
+    ];
+
+    console.debug("chmod arguments", args);
+
+    console.line();
+
+    let process;
+
+    try {
+        process = sys.spawn(args, {
+            stdout: "pipe",
+            stderr: "pipe"
+        });
+    }
+    catch (e) {
+        console.exception(e);
+        return false;
+    }
+
+    return true;
 }
 
 </script>
