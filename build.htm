@@ -110,14 +110,16 @@ document.ready = async() => {
     console.line();
 
     // check if temporary directory exists
-    const stat = sys.fs.$stat(manifest["tmp"]);
+    const temp = URL.toPath(cwd + "/" + manifest["tmp"]);
+
+    const stat = sys.fs.$stat(temp);
 
     if (!(stat && stat.isDirectory))
         // create temporary dir
-        if (!sys.fs.$mkdir(manifest["tmp"]))
-            throw new Error(`Create temporary directory - FAILED - ${manifest["tmp"]}`);
+        if (!sys.fs.$mkdir(temp))
+            throw new Error(`Create temporary directory - FAILED - ${temp}`);
         else
-            console.log(`Create temporary directory - OK - ${manifest["tmp"]}`);
+            console.log(`Create temporary directory - OK - ${temp}`);
 
     // create exe icon
     let args = [
@@ -137,7 +139,10 @@ document.ready = async() => {
     let process;
 
     try {
-        process = sys.spawn(args, { stdout: "pipe", stderr: "pipe"});
+        process = sys.spawn(args, {
+            stdout: "pipe",
+            stderr: "pipe"
+        });
     }
     catch (e) {
         console.exception(e);
@@ -187,17 +192,6 @@ document.ready = async() => {
 
     console.line();
 
-/*
-    // assemble exe required params (from scapp cpp)
-    const params = {
-        productName: "demo",
-        productVersion: "1.0.0",
-        productCopyright: "copyright",
-
-        icofile: path + "/bin/tmp/demo.ico",
-    };
-*/
-
     switch (platform) {
         case "windows":
             buildBinary("win-x32", manifest);
@@ -245,9 +239,19 @@ function buildBinary(platform, manifest)
     // packed resources
     const res = cwd + manifest["tmp"] + resources;
 
-    console.debug(`Assemble binary arguments - `, scapp, output, res);
+    console.debug("Assemble binary arguments -", scapp, output, res);
 
     // build binary
+    /*
+    // assemble exe required params (from scapp cpp)
+    const params = {
+        productName: "demo",
+        productVersion: "1.0.0",
+        productCopyright: "copyright",
+
+        icofile: path + "/bin/tmp/demo.ico",
+    };
+    */
     const result = Window.this.scapp.assembleExe(scapp, output, res, manifest);
 
     switch (result) {
