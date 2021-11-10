@@ -235,7 +235,10 @@ function buildBinary(cwd, platform, manifest)
     // packed resources
     const res = URL.toPath(cwd + "/" + manifest["tmp"] + resources);
 
-    console.debug("Assemble binary arguments -", scapp, output, res);
+    console.debug("scapp -", scapp);
+    console.debug("resources -", res);
+    console.debug("output -", output);
+    console.debug("manifest -", manifest);
 
     // build binary
     /*
@@ -248,7 +251,7 @@ function buildBinary(cwd, platform, manifest)
         icofile: path + "/bin/tmp/demo.ico",
     };
     */
-    const result = Window.this.scapp.assembleExe(scapp, output, res, manifest);
+    const result = Window.this.scapp.assembleExe(scapp, res, output, manifest);
 
     switch (result) {
         case 0:
@@ -260,7 +263,7 @@ function buildBinary(cwd, platform, manifest)
             break;
 
         case -1:
-            console.error(`Build binary ${platform} - FAILED - no .dat file`);
+            console.error(`Build binary ${platform} - FAILED - cannot open scapp binary or resources`);
             break;
 
         case -2:
