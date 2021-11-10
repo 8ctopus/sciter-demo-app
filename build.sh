@@ -14,7 +14,7 @@ case "${uname}" in
 
 esac
 
-echo "Detected OS ${machine}"
+#echo "Detected OS ${machine}"
 
 case "${machine}" in
     "windows")
