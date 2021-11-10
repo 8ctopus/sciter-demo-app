@@ -235,15 +235,15 @@ function buildBinary(cwd, platform, manifest)
     // scapp binary
     const scapp = URL.toPath(cwd + `/bin/${platform}/scapp${extension}`);
 
-    // output binary
-    const output = URL.toPath(cwd + `/bin/${platform}/${manifest["productName"]}${extension}`);
+    // binary
+    const binary = URL.toPath(cwd + `/bin/${platform}/${manifest["productName"]}${extension}`);
 
     // packed resources
     const res = URL.toPath(cwd + "/" + manifest["tmp"] + resources);
 
     console.debug("scapp -", scapp);
     console.debug("resources -", res);
-    console.debug("output -", output);
+    console.debug("binary -", binary);
     console.debug("manifest -", manifest);
 
     // build binary
@@ -257,7 +257,7 @@ function buildBinary(cwd, platform, manifest)
         icofile: path + "/bin/tmp/demo.ico",
     };
     */
-    const result = Window.this.scapp.assembleExe(scapp, res, output, manifest);
+    const result = Window.this.scapp.assembleExe(scapp, res, binary, manifest);
 
     switch (result) {
         case 0:
@@ -273,11 +273,11 @@ function buildBinary(cwd, platform, manifest)
             break;
 
         case -2:
-            console.error(`Build binary ${platform} - FAILED - open output file`);
+            console.error(`Build binary ${platform} - FAILED - open binary file`);
             break;
 
         case -3:
-            console.error(`Build binary ${platform} - FAILED - write output file`);
+            console.error(`Build binary ${platform} - FAILED - write binary file`);
             break;
 
         default:
