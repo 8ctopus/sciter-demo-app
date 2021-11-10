@@ -77,6 +77,16 @@ document.ready = async() => {
 
     console.line();
 
+    // check if temporary directory exists
+    const stat = sys.fs.$stat(manifest["tmp"]);
+
+    if (!(stat && stat.isDirectory))
+        // create temporary dir
+        if (!sys.fs.$mkdir(manifest["tmp"]))
+            throw new Error(`Create temporary directory - FAILED - ${manifest["tmp"]}`);
+        else
+            console.log(`Create temporary directory - OK - ${manifest["tmp"]}`);
+
     // create exe icon
     let args = [
         "magick",
