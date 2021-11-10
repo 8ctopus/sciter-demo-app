@@ -246,6 +246,14 @@ function buildBinary(cwd, platform, manifest)
     console.debug("binary -", binary);
     console.debug("manifest -", manifest);
 
+    // delete binary if it exists
+    if (sys.fs.$stat(binary)) {
+        let result = await sys.fs.unlink(binary);
+
+        if (!result)
+            throw new Error(`Delete binary - FAILED - ${binary}`);
+    }
+
     // build binary
     /*
     // assemble exe required params (from scapp cpp)
@@ -265,7 +273,7 @@ function buildBinary(cwd, platform, manifest)
             break;
 
         case 1:
-            console.warn(`Build binary ${platform} - FAILED - no metadata update`);
+            console.warn(`Build binary ${platform} - WARNING - no metadata update`);
             break;
 
         case -1:
