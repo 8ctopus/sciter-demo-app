@@ -36,7 +36,7 @@ logger.attach();
 // capture unhandled exceptions
 logger.capture();
 
-document.on("ready", async() => {
+document.ready = async() => {
     // subscribe to logger messages
     logger.plaintext(document.$("plaintext#logger"));
 
@@ -152,7 +152,7 @@ document.on("ready", async() => {
 
     buildExe("x32", manifest);
     buildExe("x64", manifest);
-});
+}
 
 function buildExe(type, manifest)
 {
