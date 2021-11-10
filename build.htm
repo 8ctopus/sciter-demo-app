@@ -121,40 +121,44 @@ document.ready = async() => {
         else
             console.log(`Create temporary directory - OK - ${temp}`);
 
-    // create exe icon
-    let args = [
-        "magick",
-        "-density", "256x256",
-        "-background", "transparent",
-        // source
-        manifest["icon"],
-        "-define", "icon:auto-resize",
-        "-colors", "256",
-        // dest
-        manifest["tmp"] + icon,
-    ];
-
-    console.debug("magick arguments", args);
-
-    let process;
-
-    try {
-        process = sys.spawn(args, {
-            stdout: "pipe",
-            stderr: "pipe"
-        });
-    }
-    catch (e) {
-        console.exception(e);
-        return;
-    }
-
-    readPipe(process.stdout);
-    readPipe(process.stderr);
-
-    await process.wait();
-
     console.line();
+
+    if (platform === "windows") {
+        // create exe icon
+        let args = [
+            "magick",
+            "-density", "256x256",
+            "-background", "transparent",
+            // source
+            manifest["icon"],
+            "-define", "icon:auto-resize",
+            "-colors", "256",
+            // dest
+            manifest["tmp"] + icon,
+        ];
+
+        console.debug("magick arguments", args);
+
+        let process;
+
+        try {
+            process = sys.spawn(args, {
+                stdout: "pipe",
+                stderr: "pipe"
+            });
+        }
+        catch (e) {
+            console.exception(e);
+            return;
+        }
+
+        readPipe(process.stdout);
+        readPipe(process.stderr);
+
+        await process.wait();
+
+        console.line();
+    }
 
     // pack resources
     args = [
@@ -259,7 +263,7 @@ function buildBinary(cwd, platform, manifest)
             break;
 
         case 1:
-            console.error(`Build binary ${platform} - FAILED - no metadata update`);
+            console.warn(`Build binary ${platform} - FAILED - no metadata update`);
             break;
 
         case -1:
