@@ -177,7 +177,10 @@ document.ready = async() => {
     readPipe(process.stdout);
     readPipe(process.stderr);
 
-    await process.wait();
+    let result = await process.wait();
+
+    if (result.exitCode !== 0)
+        throw new Error(`packfolder - FAILED - ${result.exitCode}`);
 
     console.line();
 
