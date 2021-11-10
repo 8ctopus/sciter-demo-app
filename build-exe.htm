@@ -25,9 +25,12 @@ import * as utils from "src/vendor/8ctopus/sciter-utils/src/utils.js";
 const resources = "resources.dat";
 const icon      = "app.ico";
 
+// current working directory
+const cwd = URL.fromPath(sys.cwd());
+
 // initialize logger
 logger.init({
-    file: URL.toPath(__DIR__ + "build.log"),
+    file: cwd + "/build.log",
     clear: true,
 });
 
@@ -55,10 +58,12 @@ document.ready = async() => {
 
     console.line();
 
+    console.log(`current working dir - ${cwd}`);
+
     // get platform
     const platform = env.PLATFORM.toLowerCase();
 
-    console.log(`platform ${platform}`);
+    console.log(`platform - ${platform}`);
 
     let packfolder;
 
