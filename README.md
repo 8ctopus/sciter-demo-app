@@ -22,10 +22,10 @@ Check the Windows pre-built exes [x32](https://github.com/8ctopus/sciter-demo-ap
 ## install
 
 - git clone the repository
-- on Mac only `chmod +x install.sh scapp.sh`
-- run `install.bat` on Windows or `./install.sh` on Mac to download the latest sciter binaries and the sciter package manager
+- on Linux/Mac `chmod +x install.sh scapp.sh`
+- run `install.bat` (Win) or `./install.sh` (Linux/Mac) to download the latest sciter binaries and the sciter package manager
 - install packages `cd src && php ../bin/spm.phar install`
-- run `scapp.bat` or `./scapp.sh`
+- run `scapp.bat` (Win) or `./scapp.sh` (Linux/Mac)
 
 ## build executable (no mac version yet)
 
