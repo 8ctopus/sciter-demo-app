@@ -114,18 +114,22 @@ document.ready = async() => {
 
     const stat = sys.fs.$stat(temp);
 
-    if (!(stat && stat.isDirectory))
+    if (!(stat && stat.isDirectory)) {
         // create temporary dir
         if (!sys.fs.$mkdir(temp))
             throw new Error(`Create temporary directory - FAILED - ${temp}`);
         else
             console.log(`Create temporary directory - OK - ${temp}`);
 
-    console.line();
+        console.line();
+    }
+
+    let args;
+    let process;
 
     if (platform === "windows") {
         // create exe icon
-        let args = [
+        args = [
             "magick",
             "-density", "256x256",
             "-background", "transparent",
@@ -138,8 +142,6 @@ document.ready = async() => {
         ];
 
         console.debug("magick arguments", args);
-
-        let process;
 
         try {
             process = sys.spawn(args, {
