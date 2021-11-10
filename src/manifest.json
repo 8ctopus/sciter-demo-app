@@ -2,6 +2,7 @@
     "productName": "demo",
     "productVersion": "1.0.7",
     "productCopyright": "https://sciter.com/",
+    "productDescription": "-",
 
     "icon": "src/icon.svg",
 
