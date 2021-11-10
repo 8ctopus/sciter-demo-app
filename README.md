@@ -35,4 +35,4 @@ To build the app binary, run script `build.bat` (Win) or `./build.sh` (Linux/Mac
 
 - [Sciter package manager](https://github.com/8ctopus/sciter-package-manager) to install dependencies
 - Sciter package manager itself requires php >= 7.3
-- [ImageMagick](https://imagemagick.org/) to build the exe icon on Windows
+- [ImageMagick](https://imagemagick.org/) to create the exe icon on Windows
