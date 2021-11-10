@@ -194,16 +194,16 @@ document.ready = async() => {
 
     switch (platform) {
         case "windows":
-            buildBinary("win-x32", manifest);
-            buildBinary("win-x64", manifest);
+            buildBinary(cwd, "win-x32", manifest);
+            buildBinary(cwd, "win-x64", manifest);
             break;
 
         case "linux":
-            buildBinary("linux", manifest);
+            buildBinary(cwd, "linux", manifest);
             break;
 
         case "osx":
-            buildBinary("macosx", manifest);
+            buildBinary(cwd, "macosx", manifest);
             break;
 
         default:
@@ -213,31 +213,27 @@ document.ready = async() => {
 
 /**
  * Build binary
+ * @param  string current working directory as url
  * @param  string platform
  * @param  object manifest
  * @return void
  */
-function buildBinary(platform, manifest)
+function buildBinary(cwd, platform, manifest)
 {
-    // get current cwd
-    const cwd = URL.toPath(__DIR__);
-
-    //console.log(cwd);
-
     // add icon file to manifest
-    manifest["icofile"] = URL.toPath(cwd + manifest["tmp"] + icon);
+    manifest["icofile"] = URL.toPath(cwd + "/" + manifest["tmp"] + icon);
 
     // get binary extension
     const extension = platform.startsWith("win-") ? ".exe" : "";
 
     // scapp binary
-    const scapp = cwd + `bin/${platform}/scapp${extension}`;
+    const scapp = URL.toPath(cwd + `/bin/${platform}/scapp${extension}`);
 
     // output binary
-    const output = cwd + `bin/${platform}/${manifest["productName"]}${extension}`;
+    const output = URL.toPath(cwd + `/bin/${platform}/${manifest["productName"]}${extension}`);
 
     // packed resources
-    const res = cwd + manifest["tmp"] + resources;
+    const res = URL.toPath(cwd + "/" + manifest["tmp"] + resources);
 
     console.debug("Assemble binary arguments -", scapp, output, res);
 
