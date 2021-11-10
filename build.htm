@@ -236,16 +236,13 @@ function buildBinary(platform, manifest)
     // output binary
     const output = cwd + `bin/${platform}/${manifest["productName"]}${extension}`;
 
+    // packed resources
+    const res = cwd + manifest["tmp"] + resources;
+
+    console.debug(`Assemble binary arguments - `, scapp, output, res);
+
     // build binary
-    const result = Window.this.scapp.assembleExe(
-        scapp,
-
-        // packed resources
-        cwd + manifest["tmp"] + resources,
-
-        output,
-        manifest
-    );
+    const result = Window.this.scapp.assembleExe(scapp, output, res, manifest);
 
     switch (result) {
         case 0:
