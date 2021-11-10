@@ -167,7 +167,10 @@ document.ready = async() => {
     console.line();
 
     try {
-        process = sys.spawn(args, { stdout: "pipe", stderr: "pipe"});
+        process = sys.spawn(args, {
+            stdout: "pipe",
+            stderr: "pipe"
+        });
     }
     catch (e) {
         console.exception(e);
