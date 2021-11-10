@@ -23,6 +23,7 @@ case "${machine}" in
 
 "windows")
     mkdir -p bin/win-x32
+    mkdir -p bin/win-x64
 
     cd bin/win-x32
 
@@ -30,6 +31,13 @@ case "${machine}" in
     curl -LO https://github.com/c-smile/sciter-js-sdk/raw/d5a13ff197fed3af46d4bc931c158828eb61e357/bin/windows/x32/scapp.exe
     curl -LO https://github.com/c-smile/sciter-js-sdk/raw/d5a13ff197fed3af46d4bc931c158828eb61e357/bin/windows/x32/inspector.exe
     curl -LO https://github.com/c-smile/sciter-js-sdk/raw/d5a13ff197fed3af46d4bc931c158828eb61e357/bin/windows/x32/sciter.dll
+
+    # sciter packfolder
+    curl -LO https://github.com/c-smile/sciter-js-sdk/raw/d5a13ff197fed3af46d4bc931c158828eb61e357/bin/windows/packfolder.exe
+
+    cd ../win-x64
+
+    curl -LO https://github.com/c-smile/sciter-js-sdk/raw/d5a13ff197fed3af46d4bc931c158828eb61e357/bin/windows/x64/scapp.exe
     ;;
 
 "linux")
@@ -41,8 +49,10 @@ case "${machine}" in
     curl -LO https://github.com/c-smile/sciter-js-sdk/raw/d5a13ff197fed3af46d4bc931c158828eb61e357/bin/linux/x64/inspector
     curl -LO https://github.com/c-smile/sciter-js-sdk/raw/d5a13ff197fed3af46d4bc931c158828eb61e357/bin/linux/x64/libsciter-gtk.so
 
+    curl -LO https://github.com/c-smile/sciter-js-sdk/raw/d5a13ff197fed3af46d4bc931c158828eb61e357/bin/linux/packfolder
+
     # make binaries executable
-    chmod +x scapp inspector libsciter-gtk.so
+    chmod +x scapp inspector libsciter-gtk.so packfolder
     ;;
 
 "macosx")
@@ -64,7 +74,7 @@ case "${machine}" in
     cd bin/${machine}
 
     # make binaries executable
-    chmod +x scapp inspector.app libsciter.dylib
+    chmod +x scapp inspector.app libsciter.dylib packfolder
     ;;
 
 esac
