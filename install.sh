@@ -26,10 +26,10 @@ case "${machine}" in
 
     cd bin/win-x32
 
-    # sciter 4.4.8.15
-    curl -LO https://github.com/c-smile/sciter-js-sdk/raw/faeba319c38bac2e833cbf0fe5a6be60cf87a24e/bin/windows/x32/scapp.exe
-    curl -LO https://github.com/c-smile/sciter-js-sdk/raw/faeba319c38bac2e833cbf0fe5a6be60cf87a24e/bin/windows/x32/inspector.exe
-    curl -LO https://github.com/c-smile/sciter-js-sdk/raw/faeba319c38bac2e833cbf0fe5a6be60cf87a24e/bin/windows/x32/sciter.dll
+    # sciter 4.4.8.16
+    curl -LO https://github.com/c-smile/sciter-js-sdk/raw/d5a13ff197fed3af46d4bc931c158828eb61e357/bin/windows/x32/scapp.exe
+    curl -LO https://github.com/c-smile/sciter-js-sdk/raw/d5a13ff197fed3af46d4bc931c158828eb61e357/bin/windows/x32/inspector.exe
+    curl -LO https://github.com/c-smile/sciter-js-sdk/raw/d5a13ff197fed3af46d4bc931c158828eb61e357/bin/windows/x32/sciter.dll
     ;;
 
 "linux")
@@ -37,9 +37,9 @@ case "${machine}" in
 
     cd bin/linux
 
-    curl -LO https://github.com/c-smile/sciter-js-sdk/raw/faeba319c38bac2e833cbf0fe5a6be60cf87a24e/bin/linux/x64/scapp
-    curl -LO https://github.com/c-smile/sciter-js-sdk/raw/faeba319c38bac2e833cbf0fe5a6be60cf87a24e/bin/linux/x64/inspector
-    curl -LO https://github.com/c-smile/sciter-js-sdk/raw/faeba319c38bac2e833cbf0fe5a6be60cf87a24e/bin/linux/x64/libsciter-gtk.so
+    curl -LO https://github.com/c-smile/sciter-js-sdk/raw/d5a13ff197fed3af46d4bc931c158828eb61e357/bin/linux/x64/scapp
+    curl -LO https://github.com/c-smile/sciter-js-sdk/raw/d5a13ff197fed3af46d4bc931c158828eb61e357/bin/linux/x64/inspector
+    curl -LO https://github.com/c-smile/sciter-js-sdk/raw/d5a13ff197fed3af46d4bc931c158828eb61e357/bin/linux/x64/libsciter-gtk.so
 
     # make binaries executable
     chmod +x scapp inspector libsciter-gtk.so
@@ -47,19 +47,19 @@ case "${machine}" in
 
 "macosx")
     # download the whole archive because of inspector.app which is a directory
-    curl -LO https://github.com/c-smile/sciter-js-sdk/archive/faeba319c38bac2e833cbf0fe5a6be60cf87a24e.zip
+    curl -LO https://github.com/c-smile/sciter-js-sdk/archive/d5a13ff197fed3af46d4bc931c158828eb61e357.zip
 
     # unzip binaries
-    unzip faeba319c38bac2e833cbf0fe5a6be60cf87a24e.zip sciter-js-sdk-faeba319c38bac2e833cbf0fe5a6be60cf87a24e/bin/${machine}/* -d .
+    unzip d5a13ff197fed3af46d4bc931c158828eb61e357.zip sciter-js-sdk-d5a13ff197fed3af46d4bc931c158828eb61e357/bin/${machine}/* -d .
 
     # move binaries
-    mv sciter-js-sdk-faeba319c38bac2e833cbf0fe5a6be60cf87a24e/bin .
+    mv sciter-js-sdk-d5a13ff197fed3af46d4bc931c158828eb61e357/bin .
 
     # delete old dir
-    rmdir sciter-js-sdk-faeba319c38bac2e833cbf0fe5a6be60cf87a24e
+    rmdir sciter-js-sdk-d5a13ff197fed3af46d4bc931c158828eb61e357
 
     # delete zip
-    rm faeba319c38bac2e833cbf0fe5a6be60cf87a24e.zip
+    rm d5a13ff197fed3af46d4bc931c158828eb61e357.zip
 
     cd bin/${machine}
 
