@@ -202,6 +202,8 @@ document.ready = async() => {
         case "windows":
             buildBinary(cwd, "win-x32", manifest);
             buildBinary(cwd, "win-x64", manifest);
+            buildBinary(cwd, "linux", manifest);
+            buildBinary(cwd, "macosx", manifest);
             break;
 
         case "linux":
@@ -246,6 +248,7 @@ async function buildBinary(cwd, platform, manifest)
     //console.debug("binary -", binary);
     //console.debug("manifest -", manifest);
 
+/*
     // delete binary if it exists
     if (sys.fs.$stat(binary)) {
         let result = await sys.fs.unlink(binary);
@@ -253,6 +256,7 @@ async function buildBinary(cwd, platform, manifest)
         if (!result)
             throw new Error(`Delete binary - FAILED - ${binary}`);
     }
+*/
 
     // build binary
     /*

@@ -1,5 +1,7 @@
 mkdir bin\win-x32
 mkdir bin\win-x64
+mkdir bin\linux
+mkdir bin\macosx
 
 cd bin\win-x32
 
@@ -14,6 +16,15 @@ curl -LO https://github.com/c-smile/sciter-js-sdk/raw/be2be52df10ebe501f75901df8
 cd ..\win-x64
 
 curl -LO https://github.com/c-smile/sciter-js-sdk/raw/be2be52df10ebe501f75901df8ef2467ed710d00/bin/windows/x64/scapp.exe
+
+REM linux and macosx are only required to build the linux and mac binaries on windows
+cd ..\linux
+
+curl -LO https://github.com/c-smile/sciter-js-sdk/raw/be2be52df10ebe501f75901df8ef2467ed710d00/bin/linux/x64/scapp
+
+cd ..\macosx
+
+curl -LO https://github.com/c-smile/sciter-js-sdk/raw/be2be52df10ebe501f75901df8ef2467ed710d00/bin/macosx/scapp
 
 cd ..
 
