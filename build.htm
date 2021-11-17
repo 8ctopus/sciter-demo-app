@@ -281,7 +281,7 @@ async function buildBinary(cwd, platform, manifest)
             break;
 
         case -1:
-            console.error(`Build binary ${platform} - FAILED - cannot open scapp binary or resources`);
+            console.error(`Build binary ${platform} - FAILED - scapp binary or resources missing`);
             break;
 
         case -2:
@@ -297,8 +297,8 @@ async function buildBinary(cwd, platform, manifest)
             break;
     }
 
-    // make binary executable
-    if (!platform.startsWith("win-"))
+    // set linux and mac binaries as executable
+    if (!platform.startsWith("win-") && env.PLATFORM.toLowerCase() !== "windows")
         if (setExecuteFlag(binary))
             console.log("Set execute flag - OK");
         else
@@ -341,7 +341,7 @@ function setExecuteFlag(binary)
         binary
     ];
 
-    console.debug("chmod arguments", args);
+    //console.debug("chmod arguments", args);
 
     console.line();
 
