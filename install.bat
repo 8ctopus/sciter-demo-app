@@ -3,17 +3,17 @@ mkdir bin\win-x64
 
 cd bin\win-x32
 
-REM sciter 4.4.8.16
-curl -LO https://github.com/c-smile/sciter-js-sdk/raw/d5a13ff197fed3af46d4bc931c158828eb61e357/bin/windows/x32/scapp.exe
-curl -LO https://github.com/c-smile/sciter-js-sdk/raw/d5a13ff197fed3af46d4bc931c158828eb61e357/bin/windows/x32/inspector.exe
-curl -LO https://github.com/c-smile/sciter-js-sdk/raw/d5a13ff197fed3af46d4bc931c158828eb61e357/bin/windows/x32/sciter.dll
+REM sciter 4.4.8.17bis
+curl -LO https://github.com/c-smile/sciter-js-sdk/raw/be2be52df10ebe501f75901df8ef2467ed710d00/bin/windows/x32/scapp.exe
+curl -LO https://github.com/c-smile/sciter-js-sdk/raw/be2be52df10ebe501f75901df8ef2467ed710d00/bin/windows/x32/inspector.exe
+curl -LO https://github.com/c-smile/sciter-js-sdk/raw/be2be52df10ebe501f75901df8ef2467ed710d00/bin/windows/x32/sciter.dll
 
 REM sciter packfolder
-curl -LO https://github.com/c-smile/sciter-js-sdk/raw/d5a13ff197fed3af46d4bc931c158828eb61e357/bin/windows/packfolder.exe
+curl -LO https://github.com/c-smile/sciter-js-sdk/raw/be2be52df10ebe501f75901df8ef2467ed710d00/bin/windows/packfolder.exe
 
 cd ..\win-x64
 
-curl -LO https://github.com/c-smile/sciter-js-sdk/raw/d5a13ff197fed3af46d4bc931c158828eb61e357/bin/windows/x64/scapp.exe
+curl -LO https://github.com/c-smile/sciter-js-sdk/raw/be2be52df10ebe501f75901df8ef2467ed710d00/bin/windows/x64/scapp.exe
 
 cd ..
 
