@@ -43,12 +43,26 @@ const dir = __DIR__.replace(/\/$/, "");
 let debug;
 let version;
 let init = false;
+const lockFile = URL.toPath(cwd + "/.lock");
 
 // do not debug in release
 debug = dir.startsWith("this://app") ? false : true;
 
 // capture unhandled exceptions
 logger.capture(unhandledExceptionHandler);
+
+// check for lock file
+const stat = sys.fs.$stat(lockFile);
+
+if (stat && stat.isFile)
+    //sys.process.exit();
+    throw new Error("app already running");
+
+// create lock file
+let file = sys.fs.$open(lockFile, "w");
+
+// close lock file
+file.close();
 
 // initialize logger
 logger.init({
@@ -183,6 +197,9 @@ document.on("closerequest", function() {
 // on close
 document.on("beforeunload", function() {
     console.log("Close application");
+
+    // delete lock file
+    sys.fs.unlink(lockFile);
 
     // flush i/o queue before closing app otherwise the previous line never gets executed
     utils.flushIOQueue();
