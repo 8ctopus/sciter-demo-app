@@ -26,10 +26,10 @@ check the `Releases` for sha256
 ## install
 
 - git clone the repository
-- on Linux/Mac `chmod +x install.sh scapp.sh build.sh`
+- on Linux/Mac `chmod +x install.sh start.sh build.sh`
 - run `install.bat` (Win) or `./install.sh` (Linux/Mac) to download the latest sciter binaries and the sciter package manager
 - install packages `cd src && php ../bin/spm.phar install`
-- run `scapp.bat` (Win) or `./scapp.sh` (Linux/Mac)
+- run `start.bat` (Win) or `./start.sh` (Linux/Mac)
 
 ## build executable
 
@@ -39,4 +39,4 @@ To build the app binary, run script `build.bat` (Win) or `./build.sh` (Linux/Mac
 
 - [Sciter package manager](https://github.com/8ctopus/sciter-package-manager) to install dependencies
 - Sciter package manager itself requires php >= 7.3
-- [ImageMagick](https://imagemagick.org/) to create the exe icon on Windows
+- [ImageMagick](https://imagemagick.org/) to create the exe icon (Windows only)
