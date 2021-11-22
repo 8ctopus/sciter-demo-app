@@ -18,14 +18,14 @@ esac
 
 case "${machine}" in
     "windows")
-        start bin/win-x32/scapp.exe build.htm --debug
+        start bin/win-x32/scapp.exe build.html --debug
         ;;
 
     "linux")
-        bin/linux/scapp build.htm --debug &
+        bin/linux/scapp build.html --debug &
         ;;
 
     "macosx")
-        bin/macosx/scapp build.htm --debug &
+        bin/macosx/scapp build.html --debug &
         ;;
 esac
