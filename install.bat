@@ -1,10 +1,12 @@
+@echo OFF
+
 REM sciter 4.4.8.18
 SET sciterSDK="da424552e56c0779515c8cdef25dc40d08b35ae4"
 
-mkdir bin\win-x32
-mkdir bin\win-x64
-mkdir bin\linux
-mkdir bin\macosx
+IF NOT EXIST bin\win-x32 mkdir bin\win-x32
+IF NOT EXIST bin\win-x64 mkdir bin\win-x64
+IF NOT EXIST bin\linux mkdir bin\linux
+IF NOT EXIST bin\macosx mkdir bin\macosx
 
 cd bin\win-x32
 
