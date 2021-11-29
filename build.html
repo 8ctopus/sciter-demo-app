@@ -272,12 +272,15 @@ async function buildBinary(cwd, platform, manifest)
     const result = Window.this.scapp.assembleExe(scapp, res, binary, manifest);
 
     switch (result) {
+        case 1:
+            if (platform.startsWith("win-")) {
+                // meta data update only applies to windows
+                console.warn(`Build binary ${platform} - WARNING - no metadata update`);
+                break;
+            }
+
         case 0:
             console.note(`Build binary ${platform} - OK`);
-            break;
-
-        case 1:
-            console.warn(`Build binary ${platform} - WARNING - no metadata update`);
             break;
 
         case -1:
