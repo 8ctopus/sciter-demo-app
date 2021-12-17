@@ -77,7 +77,7 @@ logger.attach();
 if (debug)
     logger.debug();
 
-document.ready = function() {
+document.on("ready", function() {
     // subscribe to logger messages
     logger.plaintext(document.$("plaintext#logger"));
 
@@ -175,7 +175,7 @@ document.ready = function() {
         console.error("Activate window - FAILED");
 
     init = true;
-}
+});
 
 // on close query
 document.on("closerequest", function() {
