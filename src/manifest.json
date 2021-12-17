@@ -1,8 +1,9 @@
 {
     "productName": "demo",
     "productVersion": "1.0.7",
-    "productCopyright": "https://sciter.com/",
     "productDescription": "-",
+    "productCopyright": "8ctopus",
+    "productCompany": "8ctopus",
 
     "icon": "src/icon.svg",
 
