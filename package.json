@@ -1,6 +1,5 @@
 {
   "name": "sciter-demo-app",
-  "version": "1.0.8",
   "description": "This is a [sciter.js](https://sciter.com/) demo standalone application (executable). It can be used as the starting point to build your own app.",
   "main": "src/main.htm",
   "scripts": {
