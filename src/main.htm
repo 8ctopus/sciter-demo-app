@@ -40,13 +40,12 @@ const cwd = URL.fromPath(sys.cwd());
 // app directory (will point to resources in release)
 const dir = __DIR__.replace(/\/$/, "");
 
-let debug;
 let version;
 let init = false;
 const lockFile = URL.toPath(cwd + "/.lock");
 
 // do not debug in release
-debug = dir.startsWith("this://app") ? false : true;
+const debug = !dir.startsWith("this://app");
 
 // capture unhandled exceptions
 Logger.capture(unhandledExceptionHandler);
@@ -59,7 +58,7 @@ if (stat && stat.isFile)
     throw new Error("app already running");
 
 // create lock file
-let file = sys.fs.$open(lockFile, "w");
+const file = sys.fs.$open(lockFile, "w");
 
 // close lock file
 file.close();
@@ -104,7 +103,7 @@ document.on("ready", function() {
     Window.this.isMinimizable = true;
 
     // load manifest
-    let manifest = {};
+    const manifest = {};
 
     Utils.loadJson(`${dir}/manifest.json`, manifest);
 
@@ -130,7 +129,7 @@ document.on("ready", function() {
     Analytics.event("app started");
 
     // watch app close
-    Analytics.watch("closerequest", null, "app close request");
+    Analytics.watch("closerequest", undefined, "app close request");
 
     // log monitors
     Utils.logMonitors();
@@ -178,7 +177,7 @@ document.on("ready", function() {
 });
 
 // on close query
-document.on("closerequest", function() {
+document.on("closerequest", function(event) {
     // do not ask for close request if init is not complete
     if (!init)
         return;
@@ -189,9 +188,7 @@ document.on("closerequest", function() {
     if (result !== "yes") {
         // cancel quit
         event.preventDefault();
-        return;
     }
-
 });
 
 // on close
@@ -242,7 +239,7 @@ document.on("click", function(event, element) {
 });
 
 // handle show tab event
-document.on("showtab", "pagecontrol", function(event, element) {
+document.on("showtab", "pagecontrol", function(event, _element) {
     console.debug(event.detail.tab);
 
     switch (event.detail.tab) {
@@ -276,7 +273,7 @@ document.on("showtab", "pagecontrol", function(event, element) {
 });
 
 /// window state changes
-Window.this.on("statechange", function(event) {
+Window.this.on("statechange", function(_event) {
     if (Window.this.state !== Window.WINDOW_MINIMIZED)
         return;
 
@@ -289,7 +286,7 @@ Window.this.on("statechange", function(event) {
 });
 
 /// click on tray icon
-Window.this.on("trayiconclick", function(event) {
+Window.this.on("trayiconclick", function(_event) {
     console.log("Show window...");
     Window.this.state = Window.WINDOW_SHOWN;
 
@@ -301,12 +298,10 @@ Window.this.on("trayiconclick", function(event) {
 
 /**
  * Unhandled exception handler
- * @param  Error|String e
- * @return void
+ * @param {Error|string} error
  */
-function unhandledExceptionHandler(e)
-{
-    typeof console.exception === "function" ? console.exception(e) : console.error(e);
+function unhandledExceptionHandler(error) {
+    typeof console.exception === "function" ? console.exception(error) : console.error(error);
 
     // check if app has passed init point
     if (init)
@@ -324,25 +319,21 @@ function unhandledExceptionHandler(e)
 
 /**
  * Show tray icon
- * @param string icon
- * @param string text
- * @return void
+ * @param {string} icon
+ * @param {string} text
  */
-async function showTrayIcon(icon, text)
-{
+async function showTrayIcon(icon, text) {
     Window.this.trayIcon({
         image: await Graphics.Image.load(icon),
-        text: text,
+        text,
     });
 }
 
 /**
  * Translate dialog callback
- * @param DOMElement root
- * @return void
+ * @param {Element} root
  */
-function translateDialog(root)
-{
+function translateDialog(root) {
     // translate dialog
     I18n.i18n(root);
 }
