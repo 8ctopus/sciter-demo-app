@@ -8,8 +8,8 @@
 <title>sciter demo app</title>
 <style>
 
-@import url(vendor/8ctopus/sciter-logger/src/logger.css);
-@import url(vendor/8ctopus/sciter-pagecontrol/src/pagecontrol.css);
+@import url(node_modules/sciter-logger/src/logger.css);
+@import url(node_modules/sciter-pagecontrol/src/pagecontrol.css);
 @import url(css/themes/default.css);
 
 a#forgotPassword {
@@ -28,11 +28,11 @@ plaintext#logger {
 <script type="module">
 
 import * as sys from "@sys";
-import {logger} from "vendor/8ctopus/sciter-logger/src/logger.js";
-import * as utils from "vendor/8ctopus/sciter-utils/src/utils.js";
-import {dialogs} from "vendor/8ctopus/sciter-dialogs/src/dialogs.js";
-import {i18n} from "vendor/8ctopus/sciter-i18n/src/i18n.js";
-import {analytics} from "vendor/8ctopus/sciter-analytics/src/analytics.js";
+import Logger from "node_modules/sciter-logger/src/logger.js";
+import * as Utils from "node_modules/sciter-utils/src/utils.js";
+import Dialogs from "node_modules/sciter-dialogs/src/dialogs.js";
+import I18n from "node_modules/sciter-i18n/src/i18n.js";
+import Analytics from "node_modules/sciter-analytics/src/analytics.js";
 
 // current working directory
 const cwd = URL.fromPath(sys.cwd());
@@ -49,7 +49,7 @@ const lockFile = URL.toPath(cwd + "/.lock");
 debug = dir.startsWith("this://app") ? false : true;
 
 // capture unhandled exceptions
-logger.capture(unhandledExceptionHandler);
+Logger.capture(unhandledExceptionHandler);
 
 // check for lock file
 const stat = sys.fs.$stat(lockFile);
@@ -65,39 +65,39 @@ let file = sys.fs.$open(lockFile, "w");
 file.close();
 
 // initialize logger
-logger.init({
+Logger.init({
     url: cwd + "/app-%DATE%.log",
     clear: debug,
 });
 
 // attach logger to console
-logger.attach();
+Logger.attach();
 
 // log if sciter running in debug
 if (debug)
-    logger.debug();
+    Logger.debug();
 
 document.on("ready", function() {
     // subscribe to logger messages
-    logger.plaintext(document.$("plaintext#logger"));
+    Logger.plaintext(document.$("plaintext#logger"));
 
     if (debug)
         // log sciter version
-        console.debug(utils.sciterInfo());
+        console.debug(Utils.sciterInfo());
 
     // get command line arguments
     console.debug("command line arguments", Window.this.scapp.argv);
 
-    console.debug(`device DPI = pixels in 1 inch - ${utils.devicePixels()}`);
+    console.debug(`device DPI = pixels in 1 inch - ${Utils.devicePixels()}`);
 
     // add support for F5 reload
-    utils.addReloadWindow(Window.this);
+    Utils.addReloadWindow(Window.this);
 
     // close window on escape
-    utils.closeWindowOnEscape(Window.this);
+    Utils.closeWindowOnEscape(Window.this);
 
     // center window on screen
-    utils.centerWindow(Window.this, "screen");
+    Utils.centerWindow(Window.this, "screen");
 
     // fixes win + m not working
     // https://sciter.com/forums/topic/windows-m-not-working-when-window-resizable-is-false/
@@ -106,7 +106,7 @@ document.on("ready", function() {
     // load manifest
     let manifest = {};
 
-    utils.loadJson(`${dir}/manifest.json`, manifest);
+    Utils.loadJson(`${dir}/manifest.json`, manifest);
 
     console.log("Load manifest - OK");
 
@@ -115,29 +115,29 @@ document.on("ready", function() {
     Window.this.caption = version;
 
     // set endpoint
-    analytics.init({
+    Analytics.init({
         //endpoint: "http://localhost/index.php"
         log: true,
     });
 
     // add environmental variables
-    analytics.env({
+    Analytics.env({
         name: manifest.productName,
         version: manifest.productVersion,
     });
 
     // log event
-    analytics.event("app started");
+    Analytics.event("app started");
 
     // watch app close
-    analytics.watch("closerequest", null, "app close request");
+    Analytics.watch("closerequest", null, "app close request");
 
     // log monitors
-    utils.logMonitors();
+    Utils.logMonitors();
     console.log(`on monitor ${Window.this.screen + 1}`);
 
     // configure dialogs
-    dialogs.setOptions({
+    Dialogs.setOptions({
         logging: true,
         callback: translateDialog,
     });
@@ -162,11 +162,11 @@ document.on("ready", function() {
         },
     };
 
-    if (i18n.init(locale, document.url(`locales/${locale}.json`), config))
+    if (I18n.init(locale, document.url(`locales/${locale}.json`), config))
         console.log("i18n init - OK");
 
     // translate window
-    i18n.i18n(document);
+    I18n.i18n(document);
 
     // bring window to front and set input focus
     if (Window.this.activate(true))
@@ -184,7 +184,7 @@ document.on("closerequest", function() {
         return;
 
     // ask for user confirmation
-    const result = dialogs.show("question", i18n.m("messages:cancel_on_quit", "Operation in progress.\r\n\r\nCancel?"), "yes no");
+    const result = Dialogs.show("question", I18n.m("messages:cancel_on_quit", "Operation in progress.\r\n\r\nCancel?"), "yes no");
 
     if (result !== "yes") {
         // cancel quit
@@ -202,7 +202,7 @@ document.on("beforeunload", function() {
     sys.fs.unlink(lockFile);
 
     // flush i/o queue before closing app otherwise the previous line never gets executed
-    utils.flushIOQueue();
+    Utils.flushIOQueue();
 });
 
 document.on("click", function(event, element) {
@@ -230,11 +230,11 @@ document.on("click", function(event, element) {
             break;
 
         case "showEvents":
-            analytics.log();
+            Analytics.log();
             break;
 
         case "sendEvents":
-            analytics.send();
+            Analytics.send();
             break;
 
         default:
@@ -272,7 +272,7 @@ document.on("showtab", "pagecontrol", function(event, element) {
     //console.debug(`event - ${event}`);
 
     // log event
-    analytics.event(event);
+    Analytics.event(event);
 });
 
 /// window state changes
@@ -317,7 +317,7 @@ function unhandledExceptionHandler(e)
     console.log("Close app...");
 
     // flush i/o queue before closing app otherwise the previous line never gets executed
-    utils.flushIOQueue();
+    Utils.flushIOQueue();
 
     Window.this.close();
 }
@@ -344,7 +344,7 @@ async function showTrayIcon(icon, text)
 function translateDialog(root)
 {
     // translate dialog
-    i18n.i18n(root);
+    I18n.i18n(root);
 }
 
 </script>
