@@ -1,0 +1,18 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "-",
+  "copyright": "8ctopus",
+  "company": "8ctopus",
+  "icon": "icon.svg",
+  "resources": "src",
+  "tmp": "bin/tmp/",
+  "dependencies": {
+    "sciter-analytics": "^0.2.1",
+    "sciter-dialogs": "^1.3.2",
+    "sciter-i18n": "^2.0.0",
+    "sciter-logger": "^1.1.4",
+    "sciter-pagecontrol": "^1.7.2",
+    "sciter-utils": "^0.8.0"
+  }
+}
