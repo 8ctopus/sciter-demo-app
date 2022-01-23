@@ -7,7 +7,7 @@
 <title>Build exe</title>
 <style>
 
-@import url(src/vendor/8ctopus/sciter-logger/src/logger.css);
+@import url(node_modules/sciter-logger/src/logger.css);
 
 plaintext#logger {
     height: *;
@@ -19,42 +19,42 @@ plaintext#logger {
 import * as env from "@env";
 import * as sciter from "@sciter";
 import * as sys from "@sys";
-import {logger} from "src/vendor/8ctopus/sciter-logger/src/logger.js";
-import * as utils from "src/vendor/8ctopus/sciter-utils/src/utils.js";
+import Logger from "node_modules/sciter-logger/src/logger.js";
+import * as Utils from "node_modules/sciter-utils/src/utils.js";
 
 const resources = "resources.dat";
-const icon      = "app.ico";
+const icon = "app.ico";
 
 // current working directory
 const cwd = URL.fromPath(sys.cwd());
 
 // initialize logger
-logger.init({
+Logger.init({
     file: cwd + "/build.log",
     clear: true,
 });
 
 // attach logger to console
-logger.attach();
+Logger.attach();
 
 // capture unhandled exceptions
-logger.capture();
+Logger.capture();
 
-document.ready = async() => {
+document.on("ready", async() => {
     // subscribe to logger messages
-    logger.plaintext(document.$("plaintext#logger"));
+    Logger.plaintext(document.$("plaintext#logger"));
 
     // add support for F5 reload
-    utils.addReloadWindow();
+    Utils.addReloadWindow();
 
     // close window on escape
-    utils.closeWindowOnEscape(Window.this);
+    Utils.closeWindowOnEscape(Window.this);
 
     // center window on screen
-    utils.centerWindow(Window.this, "screen");
+    Utils.centerWindow(Window.this, "screen");
 
     // log sciter version
-    console.debug(utils.sciterInfo());
+    console.debug(Utils.sciterInfo());
 
     console.line();
 
@@ -69,7 +69,7 @@ document.ready = async() => {
 
     switch (platform) {
         case "windows":
-            packfolder = "bin/win-x32/packfolder.exe";
+            packfolder = "bin/windows/packfolder.exe";
             break;
 
         case "linux":
@@ -87,21 +87,22 @@ document.ready = async() => {
     console.line();
 
     // load manifest info
-    let url = document.url(`src/manifest.json`);
+    const url = document.url("src/package.json");
 
     // get content
     let manifest = fetch(url, {sync: true});
 
     if (!manifest.ok) {
-        console.error(`Load manifest - FAILED`);
+        console.error("Load manifest - FAILED");
         return;
     }
 
     // convert to json
     try {
         manifest = manifest.json();
-    } catch (e) {
-        console.exception(`Convert manifest to json - FAILED`, e);
+    }
+    catch (error) {
+        console.exception("Convert manifest to json - FAILED", error);
         return;
     }
 
@@ -109,8 +110,15 @@ document.ready = async() => {
 
     console.line();
 
+    // copy some manifest properties
+    manifest.productName = manifest.name;
+    manifest.productDescription = manifest.description;
+    manifest.productVersion = manifest.version;
+    manifest.productCopyright = manifest.copyright;
+    manifest.productCompany = manifest.company;
+
     // check if temporary directory exists
-    const temp = URL.toPath(cwd + "/" + manifest["tmp"]);
+    const temp = URL.toPath(cwd + "/" + manifest.tmp);
 
     const stat = sys.fs.$stat(temp);
 
@@ -131,14 +139,18 @@ document.ready = async() => {
         // create exe icon
         args = [
             "magick",
-            "-density", "256x256",
-            "-background", "transparent",
+            "-density",
+            "256x256",
+            "-background",
+            "transparent",
             // source
-            manifest["icon"],
-            "-define", "icon:auto-resize",
-            "-colors", "256",
+            "src/" + manifest.icon,
+            "-define",
+            "icon:auto-resize",
+            "-colors",
+            "256",
             // dest
-            manifest["tmp"] + icon,
+            manifest.tmp + icon,
         ];
 
         console.debug("magick arguments", args);
@@ -146,11 +158,11 @@ document.ready = async() => {
         try {
             process = sys.spawn(args, {
                 stdout: "pipe",
-                stderr: "pipe"
+                stderr: "pipe",
             });
         }
-        catch (e) {
-            console.exception(e);
+        catch (error) {
+            console.exception(error);
             return;
         }
 
@@ -166,9 +178,9 @@ document.ready = async() => {
     args = [
         packfolder,
         // what to pack
-        manifest["resources"],
+        manifest.resources,
         // destination file
-        manifest["tmp"] + resources,
+        manifest.tmp + resources,
         // archive type
         "-binary",
     ];
@@ -180,18 +192,18 @@ document.ready = async() => {
     try {
         process = sys.spawn(args, {
             stdout: "pipe",
-            stderr: "pipe"
+            stderr: "pipe",
         });
     }
-    catch (e) {
-        console.exception(e);
+    catch (error) {
+        console.exception(error);
         return;
     }
 
     readPipe(process.stdout);
     readPipe(process.stderr);
 
-    let result = await process.wait();
+    const result = await process.wait();
 
     if (result.exitCode !== 0)
         throw new Error(`packfolder - FAILED - ${result.exitCode}`);
@@ -200,9 +212,9 @@ document.ready = async() => {
 
     switch (platform) {
         case "windows":
-            buildBinary(cwd, "win-x32", manifest);
-            buildBinary(cwd, "win-x64", manifest);
-            buildBinary(cwd, "linux", manifest);
+            buildBinary(cwd, "windows/x32", manifest);
+            buildBinary(cwd, "windows/x64", manifest);
+            buildBinary(cwd, "linux/x64", manifest);
             buildBinary(cwd, "macosx", manifest);
             break;
 
@@ -217,38 +229,40 @@ document.ready = async() => {
         default:
             throw new Error(`unsupported plaform - ${platform}`);
     }
-}
+});
 
 /**
  * Build binary
- * @param  string current working directory as url
- * @param  string platform
- * @param  object manifest
- * @return void
+ * @param {string} cwd - current working directory as url
+ * @param {string} platform
+ * @param {object} manifest
  */
-async function buildBinary(cwd, platform, manifest)
-{
+async function buildBinary(cwd, platform, manifest) {
     // add icon file to manifest
-    manifest["icofile"] = URL.toPath(cwd + "/" + manifest["tmp"] + icon);
+    manifest.icofile = URL.toPath(cwd + "/" + manifest.tmp + icon);
 
     // get binary extension
-    const extension = platform.startsWith("win-") ? ".exe" : "";
+    const extension = platform.startsWith("windows/") ? ".exe" : "";
 
     // scapp binary
     const scapp = URL.toPath(cwd + `/bin/${platform}/scapp${extension}`);
 
+    //console.debug(scapp);
+
     // binary
-    const binary = URL.toPath(cwd + `/bin/${platform}/${manifest["productName"]}${extension}`);
+    const binary = URL.toPath(cwd + `/bin/${platform}/${manifest.name}${extension}`);
+
+    //console.debug(binary);
 
     // packed resources
-    const res = URL.toPath(cwd + "/" + manifest["tmp"] + resources);
+    const res = URL.toPath(cwd + "/" + manifest.tmp + resources);
 
     //console.debug("scapp -", scapp);
     //console.debug("resources -", res);
     //console.debug("binary -", binary);
     //console.debug("manifest -", manifest);
 
-/*
+    /*
     // delete binary if it exists
     if (sys.fs.$stat(binary)) {
         let result = await sys.fs.unlink(binary);
@@ -273,7 +287,7 @@ async function buildBinary(cwd, platform, manifest)
 
     switch (result) {
         case 1:
-            if (platform.startsWith("win-")) {
+            if (platform.startsWith("windows")) {
                 // meta data update only applies to windows
                 console.warn(`Build binary ${platform} - WARNING - no metadata update`);
                 break;
@@ -301,47 +315,46 @@ async function buildBinary(cwd, platform, manifest)
     }
 
     // set linux and mac binaries as executable
-    if (!platform.startsWith("win-") && env.PLATFORM.toLowerCase() !== "windows")
+    if (!platform.startsWith("win-") && env.PLATFORM.toLowerCase() !== "windows") {
         if (setExecuteFlag(binary))
             console.log("Set execute flag - OK");
         else
             console.error("Set execute flag - FAILED");
+    }
 }
 
 /**
  * Read pipe
- * @param  {[type]} pipe
- * @return void
+ * @param {[type]} pipe
  */
-async function readPipe(pipe)
-{
+async function readPipe(pipe) {
     try {
         while (pipe) {
             const text = sciter.decode(await pipe.read());
 
-            if (text.length !== 0)
+            if (text.length > 0)
                 console.log(text);
         }
-    } catch (e) {
-        if (e.message == "socket is not connected")
+    }
+    catch (error) {
+        if (error.message === "socket is not connected")
             return;
-        else
-            console.exception(e);
+
+        console.exception(error);
     }
 }
 
 /**
  * Set execute flag
- * @param string binary
- * @return bool
+ * @param {string} binary
+ * @returns {boolean}
  */
-function setExecuteFlag(binary)
-{
+function setExecuteFlag(binary) {
     // pack resources
-    let args = [
+    const args = [
         "chmod",
         "+x",
-        binary
+        binary,
     ];
 
     //console.debug("chmod arguments", args);
@@ -353,11 +366,11 @@ function setExecuteFlag(binary)
     try {
         process = sys.spawn(args, {
             stdout: "pipe",
-            stderr: "pipe"
+            stderr: "pipe",
         });
     }
-    catch (e) {
-        console.exception(e);
+    catch (error) {
+        console.exception(error);
         return false;
     }
 
