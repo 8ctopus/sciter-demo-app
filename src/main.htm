@@ -105,12 +105,12 @@ document.on("ready", function() {
     // load manifest
     const manifest = {};
 
-    Utils.loadJson(`${dir}/manifest.json`, manifest);
+    Utils.loadJson(`${dir}/package.json`, manifest);
 
     console.log("Load manifest - OK");
 
     // set window title
-    version = `${manifest.productName} ${manifest.productVersion}`;
+    version = `${manifest.name} ${manifest.version}`;
     Window.this.caption = version;
 
     // set endpoint
@@ -121,8 +121,8 @@ document.on("ready", function() {
 
     // add environmental variables
     Analytics.env({
-        name: manifest.productName,
-        version: manifest.productVersion,
+        name: manifest.name,
+        version: manifest.version,
     });
 
     // log event
@@ -155,8 +155,8 @@ document.on("ready", function() {
         interpolation: {
             escapeValue: false,
             defaultVariables: {
-                name: manifest.productName,
-                version: manifest.productVersion,
+                name: manifest.name,
+                version: manifest.version,
             },
         },
     };
