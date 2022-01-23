@@ -1,0 +1,25 @@
+{
+  "name": "sciter-demo-app",
+  "version": "1.0.8",
+  "description": "This is a [sciter.js](https://sciter.com/) demo standalone application (executable). It can be used as the starting point to build your own app.",
+  "scripts": {
+    "install-sdk": "node ./node_modules/sciter-sandbox/scripts/install.mjs cleanup",
+    "scapp": "node ./node_modules/sciter-sandbox/scripts/start.mjs scapp",
+    "usciter": "node ./node_modules/sciter-sandbox/scripts/start.mjs usciter",
+    "stop": "node ./node_modules/sciter-sandbox/scripts/stop.mjs",
+    "scapp32": "node ./node_modules/sciter-sandbox/scripts/start.mjs scapp32",
+    "usciter32": "node ./node_modules/sciter-sandbox/scripts/start.mjs usciter32"
+  },
+  "author": {
+    "name": "8ctopus",
+    "email": "hello@octopuslabs.io"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/8ctopus/sciter-demo-app/issues"
+  },
+  "homepage": "https://github.com/8ctopus/sciter-demo-app#readme",
+  "devDependencies": {
+    "sciter-sandbox": "^1.2.7"
+  }
+}
