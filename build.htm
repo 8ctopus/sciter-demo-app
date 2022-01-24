@@ -124,10 +124,10 @@ document.on("ready", async() => {
 
     if (!(stat && stat.isDirectory)) {
         // create temporary dir
-        if (!sys.fs.$mkdir(temp))
-            throw new Error(`Create temporary directory - FAILED - ${temp}`);
-        else
+        if (sys.fs.$mkdir(temp))
             console.log(`Create temporary directory - OK - ${temp}`);
+        else
+            throw new Error(`Create temporary directory - FAILED - ${temp}`);
 
         console.line();
     }
@@ -361,10 +361,8 @@ function setExecuteFlag(binary) {
 
     console.line();
 
-    let process;
-
     try {
-        process = sys.spawn(args, {
+        sys.spawn(args, {
             stdout: "pipe",
             stderr: "pipe",
         });
