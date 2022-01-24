@@ -21,7 +21,7 @@ It can be used as the starting point to build your own app.
 [Linux](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.8/demo-linux)
 [Mac](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.8/demo-macosx)
 
-check the `Releases` for sha256
+check the `Releases` for sha256 signatures
 
 ## demo
 
@@ -38,8 +38,6 @@ check the `Releases` for sha256
 
 ## build executable
 
-To build the app binary, run script `npm run build`.
+`npm run build`
 
-## build requirements
-
-- [ImageMagick](https://imagemagick.org/) to create the exe icon (Windows only)
+Building requires [ImageMagick](https://imagemagick.org/) to create the exe icon on Windows.
