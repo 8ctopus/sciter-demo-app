@@ -38,10 +38,8 @@ check the `Releases` for sha256
 
 ## build executable
 
-To build the app binary, run script `build.bat` (Win) or `./build.sh` (Linux/Mac).
+To build the app binary, run script `npm run build`.
 
-## requirements
+## build requirements
 
-- [Sciter package manager](https://github.com/8ctopus/sciter-package-manager) to install dependencies
-- Sciter package manager itself requires php >= 7.3
 - [ImageMagick](https://imagemagick.org/) to create the exe icon (Windows only)

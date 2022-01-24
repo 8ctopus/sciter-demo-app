@@ -8,7 +8,8 @@
     "usciter": "node ./node_modules/sciter-sandbox/scripts/start.mjs usciter",
     "stop": "node ./node_modules/sciter-sandbox/scripts/stop.mjs",
     "scapp32": "node ./node_modules/sciter-sandbox/scripts/start.mjs scapp32",
-    "usciter32": "node ./node_modules/sciter-sandbox/scripts/start.mjs usciter32"
+    "usciter32": "node ./node_modules/sciter-sandbox/scripts/start.mjs usciter32",
+    "build": "node ./build.mjs"
   },
   "author": {
     "name": "8ctopus",
