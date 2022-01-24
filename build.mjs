@@ -14,7 +14,6 @@ try {
         "--debug",
     ];
 
-    //console.log(arguments_);
     const platform = os.platform();
 
     spawn(scapp[platform], arguments_, {
