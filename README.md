@@ -16,10 +16,10 @@ It can be used as the starting point to build your own app.
 
 ## executable demos
 
-[Windows x64](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.8/demo-winx64.exe)
-[Windows x32](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.8/demo-winx32.exe)
-[Linux](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.8/demo-linux)
-[Mac](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.8/demo-macosx)
+[Windows x64](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.8/demo-winx64.exe),
+[Windows x32](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.8/demo-winx32.exe),
+[Linux](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.8/demo-linux),
+[Mac](https://github.com/8ctopus/sciter-demo-app/releases/download/1.0.8/demo-macosx).
 
 check the `Releases` for sha256 signatures
 
