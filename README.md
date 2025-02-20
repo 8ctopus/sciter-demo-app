@@ -26,13 +26,7 @@ It can be used as the starting point to build your own app.
 
 Building requires [ImageMagick](https://imagemagick.org/) to create the exe icon on Windows.
 
-### demo requirements
-
-- A recent version of Node.js `node` (tested with 22 LTS) and its package manager `npm`.
-    - On Windows [download](https://nodejs.dev/download/) and run the installer
-    - On Linux check the [installation guide](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04#option-2-%E2%80%94-installing-node-js-with-apt-using-a-nodesource-ppa)
-
-#### executable demos
+### executable demos
 
 Check the `Releases` for sha256 signatures
 
@@ -40,3 +34,9 @@ Check the `Releases` for sha256 signatures
 [Windows x32](releases/download/1.0.8/demo-winx32.exe),
 [Linux](releases/download/1.0.8/demo-linux),
 [Mac](releases/download/1.0.8/demo-macosx).
+
+### demo requirements
+
+- A recent version of Node.js `node` (tested with 22 LTS) and its package manager `npm`.
+    - On Windows [download](https://nodejs.dev/download/) and run the installer
+    - On Linux check the [installation guide](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04#option-2-%E2%80%94-installing-node-js-with-apt-using-a-nodesource-ppa)
