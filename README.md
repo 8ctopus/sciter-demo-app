@@ -12,7 +12,7 @@ It can be used as the starting point to build your own app.
 - translation engine
 - theme
 - pagecontrol
-- in-app analytics (work in progress)
+- in-app analytics
 
 ## demo
 
