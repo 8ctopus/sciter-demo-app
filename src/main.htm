@@ -50,18 +50,19 @@ const debug = !dir.startsWith("this://app");
 // capture unhandled exceptions
 Logger.capture(unhandledExceptionHandler);
 
-// check for lock file
-const stat = sys.fs.$stat(lockFile);
+if (!debug) {
+    // check for lock file
+    const stat = sys.fs.$stat(lockFile);
 
-if (stat && stat.isFile)
-    //sys.process.exit();
-    throw new Error("app already running");
+    if (stat && stat.isFile)
+        throw new Error("app already running");
 
-// create lock file
-const file = sys.fs.$open(lockFile, "w");
+    // create lock file
+    const file = sys.fs.$open(lockFile, "w");
 
-// close lock file
-file.close();
+    // close lock file
+    file.close();
+}
 
 // initialize logger
 Logger.init({
@@ -177,7 +178,7 @@ document.on("ready", async function() {
 // on close query
 document.on("closerequest", function(event) {
     // do not ask for close request if init is not complete
-    if (!init)
+    if (!init || debug)
         return;
 
     // ask for user confirmation
