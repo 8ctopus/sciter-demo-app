@@ -76,7 +76,7 @@ Logger.attach();
 if (debug)
     Logger.debug();
 
-document.on("ready", function() {
+document.on("ready", async function() {
     // subscribe to logger messages
     Logger.plaintext(document.$("plaintext#logger"));
 
@@ -152,6 +152,8 @@ document.on("ready", function() {
 
         defaultValue: debug ? " (i18n)" : "",
 
+        compatibilityJSON: 'v3',
+
         interpolation: {
             escapeValue: false,
             defaultVariables: {
@@ -161,8 +163,7 @@ document.on("ready", function() {
         },
     };
 
-    if (I18n.init(locale, document.url(`locales/${locale}.json`), config))
-        console.log("i18n init - OK");
+    await I18n.init(locale, document.url(`locales/${locale}.json`), config);
 
     // translate window
     I18n.i18n(document);
