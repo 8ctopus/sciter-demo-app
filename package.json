@@ -23,6 +23,6 @@
   "devDependencies": {
     "sciter-logger": "^1.1.4",
     "sciter-sandbox": "^1.2.7",
-    "sciter-utils": "^0.8.0"
+    "sciter-utils": "^1.0.0"
   }
 }
