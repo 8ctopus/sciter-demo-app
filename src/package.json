@@ -13,6 +13,6 @@
     "sciter-i18n": "^2.0.0",
     "sciter-logger": "^1.1.4",
     "sciter-pagecontrol": "^1.7.2",
-    "sciter-utils": "^0.8.0"
+    "sciter-utils": "^1.0.0"
   }
 }
