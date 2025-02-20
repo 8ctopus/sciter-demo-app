@@ -24,7 +24,9 @@ It can be used as the starting point to build your own app.
 - stop demo `npm run stop`
 - build executable `npm run build`
 
-Building requires [ImageMagick](https://imagemagick.org/) to create the exe icon on Windows.
+The executables are named `demo` and can be found in the respective platform bin directories.
+
+_NOTE_: Building requires [ImageMagick](https://imagemagick.org/) to create the exe icon on Windows.
 
 ### executable demos
 
