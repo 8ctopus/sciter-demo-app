@@ -17,8 +17,9 @@ It can be used as the starting point to build your own app.
 ## demo
 
 - git clone the repository
-- install packages `npm install`
+- install sandbox packages `npm install`
 - install latest sciter sdk `npm run install-sdk`
+- install app packages `cd src; npm install`
 - start demo `npm run scapp`
 - stop demo `npm run stop`
 - build executable `npm run build`
