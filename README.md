@@ -32,10 +32,10 @@ _NOTE_: Building requires [ImageMagick](https://imagemagick.org/) to create the 
 
 Check the `Releases` for sha256 signatures
 
-[Windows x64](releases/download/1.0.8/demo-winx64.exe),
-[Windows x32](releases/download/1.0.8/demo-winx32.exe),
-[Linux](releases/download/1.0.8/demo-linux),
-[Mac](releases/download/1.0.8/demo-macosx).
+[Windows x64](releases/download/1.1.0/demo-winx64.exe),
+[Windows x32](releases/download/1.1.0/demo-winx32.exe),
+[Linux](releases/download/1.1.0/demo-linux),
+[Mac](releases/download/1.1.0/demo-macosx).
 
 ### demo requirements
 
