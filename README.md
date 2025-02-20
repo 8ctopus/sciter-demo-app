@@ -20,13 +20,13 @@ It can be used as the starting point to build your own app.
 - install sandbox packages `npm install`
 - install latest sciter sdk `npm run install-sdk`
 - install app packages `cd src; npm install`
-- start demo `npm run scapp`
+- start demo app through sandbox `npm run scapp`
 - stop demo `npm run stop`
 - build executable `npm run build`
 
-The executables are named `demo` and can be found in the respective platform bin directories.
+The executables are named `demo` and can be found in the respective platform directories within `bin`.
 
-_NOTE_: Building requires [ImageMagick](https://imagemagick.org/) to create the exe icon on Windows.
+_NOTE_: On Windows, building requires [ImageMagick](https://imagemagick.org/) to create the exe icon.
 
 ### executable demos
 
