@@ -81,11 +81,9 @@ document.on("ready", async function() {
     Logger.plaintext(document.$("plaintext#logger"));
 
     if (debug)
-        // log sciter version
         console.debug(Utils.sciterInfo());
 
-    // get command line arguments
-    console.debug("command line arguments ", Window.this.scapp?.argv);
+    console.debug("command line arguments", Window.this.scapp?.argv);
 
     console.debug(`device DPI = pixels in 1 inch - ${Utils.devicePixels()}`);
 
@@ -102,12 +100,11 @@ document.on("ready", async function() {
     // https://sciter.com/forums/topic/windows-m-not-working-when-window-resizable-is-false/
     Window.this.isMinimizable = true;
 
-    // load manifest
     const manifest = {};
 
     Utils.loadJson(`${dir}/package.json`, manifest);
 
-    console.log("Load manifest - OK");
+    console.debug("Load manifest - OK");
 
     // set window title
     version = `${manifest.name} ${manifest.version}`;
@@ -115,7 +112,7 @@ document.on("ready", async function() {
 
     // set endpoint
     Analytics.init({
-        //endpoint: "http://localhost/index.php"
+        //endpoint: "http://localhost/api"
         log: true,
     });
 
